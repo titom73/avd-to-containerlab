@@ -1,0 +1,8 @@
+VLAN  Name                             Status    Ports
+----- -------------------------------- --------- -------------------------------
+1     default                          active    Et3, Et4, Et5, Et6, Et7, Et8
+302   CENTRAL_LAN_02                   active    Et5, Vx1
+1192* VLAN1192                         active    Cpu, Vx1
+1195* VLAN1195                         active    Cpu, Vx1
+
+* indicates a Dynamic VLAN

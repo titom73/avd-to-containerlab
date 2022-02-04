@@ -1,0 +1,81 @@
+---
+ztp:
+  default:
+    registration: http://10.73.254.1/ztp/bootstrap
+    gateway: 10.73.254.253
+    nameservers:
+      - 10.73.1.254
+      - 10.73.254.253
+    use_system_mac: false
+  general:
+    subnets:
+      - network: 10.73.254.0
+        netmask: 255.255.255.0
+        gateway: 10.73.254.253
+        nameservers:
+          - 10.73.1.254
+          - 10.73.254.253
+        start: 10.73.254.200
+        end: 10.73.254.210
+        lease_time: 300
+
+  clients:
+    # edge
+    - name: EAPI-AGG01
+      mac: '0c:1d:c0:1d:62:21'
+      ip4: 10.73.254.21
+    - name: EAPI-AGG02
+      mac: '0c:1d:c0:1d:62:22'
+      ip4: 10.73.254.22
+    # l2leaf
+    - name: EAPI-L2LEAF01
+      mac: '50:01:00:14:00:00'
+      ip4: 10.73.254.31
+    - name: EAPI-L2LEAF02
+      mac: '50:01:00:15:00:00'
+      ip4: 10.73.254.32
+    # l3leaf
+    - name: EAPI-BL01A
+      mac: '0c:1d:c0:1d:62:15'
+      ip4: 10.73.254.15
+    - name: EAPI-BL01B
+      mac: '0c:1d:c0:1d:62:16'
+      ip4: 10.73.254.16
+    - name: EAPI-CL01A
+      mac: '50:01:00:11:00:00'
+      ip4: 10.73.254.19
+    - name: EAPI-CL01B
+      mac: '50:01:00:12:00:00'
+      ip4: 10.73.254.20
+    - name: EAPI-LEAF1A
+      mac: '0c:1d:c0:1d:62:11'
+      ip4: 10.73.254.11
+    - name: EAPI-LEAF1B
+      mac: '0c:1d:c0:1d:62:12'
+      ip4: 10.73.254.12
+    - name: EAPI-LEAF2A
+      mac: '0c:1d:c0:1d:62:13'
+      ip4: 10.73.254.13
+    - name: EAPI-LEAF2B
+      mac: '0c:1d:c0:1d:62:14'
+      ip4: 10.73.254.14
+    - name: EAPI-LEAF3A
+      mac: '0c:1d:c0:1d:62:17'
+      ip4: 10.73.254.17
+    - name: EAPI-LEAF4A
+      mac: '0c:1d:c0:1d:62:18'
+      ip4: 10.73.254.18
+    # route_server
+    - name: EAPI-RS01
+      mac: '50:01:00:19:00:00'
+      ip4: 10.73.254.51
+    - name: EAPI-RS02
+      mac: '50:01:00:1a:00:00'
+      ip4: 10.73.254.52
+    # spine
+    - name: EAPI-SPINE1
+      mac: '0c:1d:c0:1d:62:01'
+      ip4: 10.73.254.1
+    - name: EAPI-SPINE2
+      mac: '0c:1d:c0:1d:62:02'
+      ip4: 10.73.254.2

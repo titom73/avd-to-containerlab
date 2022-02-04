@@ -1,0 +1,53 @@
+---
+avd_ip_prefixes:
+  - prefix: '172.31.253.0/31'
+    description: 'mlag_peer_ipv4_pool for edge'
+    vrf: default
+  - prefix: '172.31.253.2/31'
+    description: 'mlag_peer_l3_ipv4_pool for edge'
+    vrf: default
+  - prefix: '172.31.251.0/24'
+    description: 'uplink_ipv4_pool for l2leaf'
+    vrf: default
+  - prefix: '172.31.253.0/31'
+    description: 'mlag_peer_ipv4_pool for l2leaf'
+    vrf: default
+  - prefix: '172.31.253.2/31'
+    description: 'mlag_peer_l3_ipv4_pool for l2leaf'
+    vrf: default
+  - prefix: '192.168.253.0/24'
+    description: 'loopback_ipv4_pool for l2leaf'
+    vrf: default
+  - prefix: '192.168.252.0/24'
+    description: 'vtep_loopback_ipv4_pool for l2leaf'
+    vrf: default
+  - prefix: '172.31.255.0/24'
+    description: 'uplink_ipv4_pool for l3leaf'
+    vrf: default
+  - prefix: '172.31.253.0/31'
+    description: 'mlag_peer_ipv4_pool for l3leaf'
+    vrf: default
+  - prefix: '172.31.253.2/31'
+    description: 'mlag_peer_l3_ipv4_pool for l3leaf'
+    vrf: default
+  - prefix: '192.168.255.0/24'
+    description: 'loopback_ipv4_pool for l3leaf'
+    vrf: default
+  - prefix: '192.168.254.0/24'
+    description: 'vtep_loopback_ipv4_pool for l3leaf'
+    vrf: default
+  - prefix: '172.31.250.0/24'
+    description: 'uplink_ipv4_pool for route_server'
+    vrf: default
+  - prefix: '192.168.0.0/24'
+    description: 'loopback_ipv4_pool for route_server'
+    vrf: default
+  - prefix: '172.31.253.0/31'
+    description: 'mlag_peer_ipv4_pool for spine'
+    vrf: default
+  - prefix: '172.31.253.2/31'
+    description: 'mlag_peer_l3_ipv4_pool for spine'
+    vrf: default
+  - prefix: '192.168.1.0/24'
+    description: 'loopback_ipv4_pool for spine'
+    vrf: default

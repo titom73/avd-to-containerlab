@@ -1,0 +1,176 @@
+---
+name: ceos_fabric
+
+mgmt:
+  network: 'mgmt_ceos_fabric'
+  ipv4_subnet: 10.73.255.0/24
+
+topology:
+  kinds:
+    ceos:
+      image: arista/ceos:4.27.1F
+    linux:
+      image: titom73/network-multitool:extra
+  nodes:
+    ceos-agg01:
+      image: arista/ceos:4.27.1F
+      mgmt_ipv4: 10.73.255.121
+      kind: ceos
+      startup-config: /home/tom/arista-avd/avd-lab-validation/inventories/containerlab/intended/configs/ceos-agg01.cfg
+      ports:
+      - 8021:443/tcp
+      env:
+        TMODE: lacp
+    ceos-agg02:
+      image: arista/ceos:4.27.1F
+      mgmt_ipv4: 10.73.255.122
+      kind: ceos
+      startup-config: /home/tom/arista-avd/avd-lab-validation/inventories/containerlab/intended/configs/ceos-agg02.cfg
+      ports:
+      - 8022:443/tcp
+      env:
+        TMODE: lacp
+    ceos-bl01a:
+      image: arista/ceos:4.27.1F
+      mgmt_ipv4: 10.73.255.115
+      kind: ceos
+      startup-config: /home/tom/arista-avd/avd-lab-validation/inventories/containerlab/intended/configs/ceos-bl01a.cfg
+      ports:
+      - 8017:443/tcp
+      env:
+        TMODE: lacp
+    ceos-bl01b:
+      image: arista/ceos:4.27.1F
+      mgmt_ipv4: 10.73.255.116
+      kind: ceos
+      startup-config: /home/tom/arista-avd/avd-lab-validation/inventories/containerlab/intended/configs/ceos-bl01b.cfg
+      ports:
+      - 8018:443/tcp
+      env:
+        TMODE: lacp
+    ceos-leaf1a:
+      image: arista/ceos:4.27.1F
+      mgmt_ipv4: 10.73.255.111
+      kind: ceos
+      startup-config: /home/tom/arista-avd/avd-lab-validation/inventories/containerlab/intended/configs/ceos-leaf1a.cfg
+      ports:
+      - 8011:443/tcp
+      env:
+        TMODE: lacp
+    ceos-leaf1b:
+      image: arista/ceos:4.27.1F
+      mgmt_ipv4: 10.73.255.112
+      kind: ceos
+      startup-config: /home/tom/arista-avd/avd-lab-validation/inventories/containerlab/intended/configs/ceos-leaf1b.cfg
+      ports:
+      - 8012:443/tcp
+      env:
+        TMODE: lacp
+    ceos-leaf2a:
+      image: arista/ceos:4.27.1F
+      mgmt_ipv4: 10.73.255.113
+      kind: ceos
+      startup-config: /home/tom/arista-avd/avd-lab-validation/inventories/containerlab/intended/configs/ceos-leaf2a.cfg
+      ports:
+      - 8013:443/tcp
+      env:
+        TMODE: lacp
+    ceos-leaf2b:
+      image: arista/ceos:4.27.1F
+      mgmt_ipv4: 10.73.255.114
+      kind: ceos
+      startup-config: /home/tom/arista-avd/avd-lab-validation/inventories/containerlab/intended/configs/ceos-leaf2b.cfg
+      ports:
+      - 8014:443/tcp
+      env:
+        TMODE: lacp
+    ceos-leaf3a:
+      image: arista/ceos:4.27.1F
+      mgmt_ipv4: 10.73.255.117
+      kind: ceos
+      startup-config: /home/tom/arista-avd/avd-lab-validation/inventories/containerlab/intended/configs/ceos-leaf3a.cfg
+      ports:
+      - 8015:443/tcp
+      env:
+        TMODE: lacp
+    ceos-leaf4a:
+      image: arista/ceos:4.27.1F
+      mgmt_ipv4: 10.73.255.118
+      kind: ceos
+      startup-config: /home/tom/arista-avd/avd-lab-validation/inventories/containerlab/intended/configs/ceos-leaf4a.cfg
+      ports:
+      - 8016:443/tcp
+      env:
+        TMODE: lacp
+    ceos-spine1:
+      image: arista/ceos:4.27.1F
+      mgmt_ipv4: 10.73.255.101
+      kind: ceos
+      startup-config: /home/tom/arista-avd/avd-lab-validation/inventories/containerlab/intended/configs/ceos-spine1.cfg
+      ports:
+      - 8001:443/tcp
+      env:
+        TMODE: lacp
+    ceos-spine2:
+      image: arista/ceos:4.27.1F
+      mgmt_ipv4: 10.73.255.102
+      kind: ceos
+      startup-config: /home/tom/arista-avd/avd-lab-validation/inventories/containerlab/intended/configs/ceos-spine2.cfg
+      ports:
+      - 8002:443/tcp
+      env:
+        TMODE: lacp
+    client11:
+      kind: linux
+      mgmt_ipv4: 10.73.255.191
+      env:
+        TMODE: lacp
+    client21:
+      kind: linux
+      mgmt_ipv4: 10.73.255.193
+      env:
+        TMODE: lacp
+    client12:
+      kind: linux
+      mgmt_ipv4: 10.73.255.192
+    client22:
+      kind: linux
+      mgmt_ipv4: 10.73.255.194
+
+  links:
+    - endpoints: ["ceos-agg01:eth1", "ceos-leaf1a:eth5"]
+    - endpoints: ["ceos-agg01:eth2", "ceos-leaf1b:eth5"]
+    - endpoints: ["ceos-agg02:eth1", "ceos-leaf2a:eth5"]
+    - endpoints: ["ceos-agg02:eth2", "ceos-leaf2b:eth5"]
+    - endpoints: ["ceos-bl01a:eth1", "ceos-spine1:eth5"]
+    - endpoints: ["ceos-bl01a:eth2", "ceos-spine2:eth5"]
+    - endpoints: ["ceos-bl01a:eth3", "ceos-bl01b:eth3"]
+    - endpoints: ["ceos-bl01a:eth4", "ceos-bl01b:eth4"]
+    - endpoints: ["ceos-bl01b:eth1", "ceos-spine1:eth6"]
+    - endpoints: ["ceos-bl01b:eth2", "ceos-spine2:eth6"]
+    - endpoints: ["ceos-leaf1a:eth1", "ceos-spine1:eth1"]
+    - endpoints: ["ceos-leaf1a:eth2", "ceos-spine2:eth1"]
+    - endpoints: ["ceos-leaf1a:eth3", "ceos-leaf1b:eth3"]
+    - endpoints: ["ceos-leaf1a:eth4", "ceos-leaf1b:eth4"]
+    - endpoints: ["ceos-leaf1b:eth1", "ceos-spine1:eth2"]
+    - endpoints: ["ceos-leaf1b:eth2", "ceos-spine2:eth2"]
+    - endpoints: ["ceos-leaf2a:eth1", "ceos-spine1:eth3"]
+    - endpoints: ["ceos-leaf2a:eth2", "ceos-spine2:eth3"]
+    - endpoints: ["ceos-leaf2a:eth3", "ceos-leaf2b:eth3"]
+    - endpoints: ["ceos-leaf2a:eth4", "ceos-leaf2b:eth4"]
+    - endpoints: ["ceos-leaf2b:eth1", "ceos-spine1:eth4"]
+    - endpoints: ["ceos-leaf2b:eth2", "ceos-spine2:eth4"]
+    - endpoints: ["ceos-leaf3a:eth1", "ceos-spine1:eth7"]
+    - endpoints: ["ceos-leaf3a:eth2", "ceos-spine2:eth7"]
+    - endpoints: ["ceos-leaf3a:eth3", "ceos-leaf4a:eth3"]
+    - endpoints: ["ceos-leaf3a:eth4", "ceos-leaf4a:eth4"]
+    - endpoints: ["ceos-leaf4a:eth1", "ceos-spine1:eth8"]
+    - endpoints: ["ceos-leaf4a:eth2", "ceos-spine2:eth8"]
+
+    - endpoints: ["ceos-agg01:eth3", "client11:eth1"]
+    - endpoints: ["ceos-agg01:eth4", "client11:eth2"]
+    - endpoints: ["ceos-agg01:eth5", "client12:eth1"]
+
+    - endpoints: ["ceos-agg02:eth3", "client21:eth1"]
+    - endpoints: ["ceos-agg02:eth4", "client21:eth2"]
+    - endpoints: ["ceos-agg02:eth5", "client22:eth1"]

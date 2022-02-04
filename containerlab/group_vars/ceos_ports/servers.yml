@@ -1,0 +1,70 @@
+---
+servers:
+  SRV-POD01:
+    rack: POD01
+    adapters:
+      - type: nic
+        server_ports: [Eth1]
+        switch_ports: [Ethernet3]
+        switches: [ceos-agg01]
+        profile: ALL
+  SRV-POD02:
+    rack: POD02
+    adapters:
+      - type: nic
+        server_ports: [Eth1]
+        switch_ports: [Ethernet3]
+        switches: [ceos-agg02]
+        profile: ALL
+  SRV-POD03:
+    rack: POD03
+    adapters:
+      - server_ports: [ Eth1, Eth2 ]
+        switch_ports: [ Ethernet5, Ethernet5 ]
+        switches: [ eos-leaf3A, eos-leaf4A ]
+        profile: ALL
+        port_channel:
+          state: present
+          description: PortChanne1
+          mode: active
+          short_esi: '0303:0202:0101'
+
+  client11:
+    rack: POD01
+    adapters:
+      - server_ports: [ Eth1, Eth2 ]
+        switch_ports: [ Ethernet3, Ethernet4 ]
+        switches: [ ceos-agg01, ceos-agg01 ]
+        profile: ALL
+        port_channel:
+          state: present
+          description: PortChanne1
+          mode: active
+  client21:
+    rack: POD02
+    adapters:
+      - server_ports: [ Eth1, Eth2 ]
+        switch_ports: [ Ethernet3, Ethernet4 ]
+        switches: [ ceos-agg02, ceos-agg02 ]
+        profile: ALL
+        port_channel:
+          state: present
+          description: PortChanne1
+          mode: active
+
+  client12:
+    rack: POD01
+    adapters:
+      - type: nic
+        server_ports: [Eth1]
+        switch_ports: [Ethernet5]
+        switches: [ceos-agg01]
+        profile: 'A-PR01-DMZ'
+  client22:
+    rack: POD02
+    adapters:
+      - type: nic
+        server_ports: [Eth1]
+        switch_ports: [Ethernet5]
+        switches: [ceos-agg02]
+        profile: 'A-PR01-DMZ'

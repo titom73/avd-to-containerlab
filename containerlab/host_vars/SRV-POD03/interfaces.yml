@@ -1,0 +1,68 @@
+vrfs:
+  MGMT:
+    ip_routing: false
+  tenant_a_110:
+    ip_routing: true
+    ipv6_routing: false
+  tenant_a_113:
+    ip_routing: true
+    ipv6_routing: false
+  tenant_b_201:
+    ip_routing: true
+    ipv6_routing: false
+
+ethernet_interfaces:
+  Ethernet1:
+    description: to AVD2-LEAF3A - eth5
+    shutdown: false
+    logging:
+      event:
+        link_status: true
+    channel_group:
+      id: 1
+      mode: active
+  Ethernet2:
+    description: to AVD2-LEAF4A - eth5
+    shutdown: false
+    logging:
+      event:
+        link_status: true
+    channel_group:
+      id: 1
+      mode: active
+
+port_channel_interfaces:
+  Port-Channel1:
+    description: 'to AVD2-LEAF{3|4}A - ESI'
+    type: switched
+    vlans: "1-4000"
+    native_vlan: 1
+    mode: trunk
+    spanning_tree_bpdufilter: false
+    spanning_tree_bpduguard: false
+    spanning_tree_portfast: edge
+
+vlan_interfaces:
+  Vlan110:
+    description: SVI for Tenant A vlan 110
+    shutdown: false
+    vrf: tenant_a_110
+    ip_address: 10.1.10.3/24
+  Vlan113:
+    description: SVI for Tenant A vlan 113
+    shutdown: false
+    vrf: tenant_a_113
+    ip_address: 10.1.13.3/24
+  Vlan201:
+    description: SVI for Tenant B vlan 201
+    shutdown: false
+    vrf: tenant_b_201
+    ip_address: 10.2.1.3/24
+
+static_routes:
+  - vrf: tenant_a_110
+    destination_address_prefix: 0.0.0.0/0
+    gateway: 10.1.10.254
+  - vrf: tenant_a_113
+    destination_address_prefix: 0.0.0.0/0
+    gateway: 10.1.13.254

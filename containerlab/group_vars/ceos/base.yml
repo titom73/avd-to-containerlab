@@ -1,0 +1,88 @@
+---
+# Validation lab
+# local users
+local_users:
+  admin:
+    privilege: 15
+    role: network-admin
+    no_password: true
+    # sha512_password: "$6$Df86J4/SFMDE3/1K$Hef4KstdoxNDaami37cBquTWOTplC.miMPjXVgQxMe92.e5wxlnXOLlebgPj8Fz1KO0za/RCO7ZIs4Q6Eiq1g1"
+
+  cvpadmin:
+    privilege: 15
+    role: network-admin
+    sha512_password: "$6$rZKcbIZ7iWGAWTUM$TCgDn1KcavS0s.OV8lacMTUkxTByfzcGlFlYUWroxYuU7M/9bIodhRO7nXGzMweUxvbk8mJmQl8Bh44cRktUj."
+
+  ansible:
+    privilege: 15
+    role: network-admin
+    sha512_password: "$6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/"
+
+  demo:
+    privilege: 15
+    role: network-admin
+    sha512_password: "$6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/"
+
+
+# Cloud Vision server information
+cvp_instance_ips:
+  - 10.73.254.254
+cvp_ingestauth_key: 'telarista'
+# cvp_ingestauth_key: telarista
+
+# OOB Management network default gateway.
+mgmt_gateway: 10.73.255.1
+mgmt_interface: Management0
+
+# dns servers.
+name_servers:
+  - 10.73.1.251
+
+# NTP Servers IP or DNS name, first NTP server will be prefered, and sourced from Managment VRF
+ntp:
+  local_interface:
+    name: Management1
+    vrf: MGMT
+  servers:
+  - name: 10.73.254.253
+    vrf: MGMT
+  - name: 10.73.1.254
+    vrf: MGMT
+    preferred: true
+
+# Clock timezone | Optional
+timezone: Europe/Paris
+
+snmp_server:
+  communities:
+    inetsix-ro:
+      access: rw
+      access_list_ipv4:
+        name: inetsix-snmp-acl
+      view: test
+
+validate_state_markdown_flavor: github
+
+custom_structured_configuration_prefix: [ inetsix_ ]
+
+inetsix_management_ssh:
+  idle_timeout: 0
+  enable: true
+  vrfs:
+    MGT:
+      enable: true
+
+inetsix_aaa_authorization:
+  exec:
+    default: local
+
+inetsix_management_ssh:
+  enable: true
+  vrfs:
+    MGMT:
+      enable: true
+
+inetsix_static_routes:
+  - vrf: MGMT
+    destination_address_prefix: 10.73.254.0/24
+    gateway: 10.73.255.1

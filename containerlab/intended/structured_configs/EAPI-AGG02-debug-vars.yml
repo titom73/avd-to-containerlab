@@ -1,0 +1,905 @@
+type: edge
+local_users:
+  admin:
+    privilege: 15
+    role: network-admin
+    no_password: true
+  cvpadmin:
+    privilege: 15
+    role: network-admin
+    sha512_password: $6$rZKcbIZ7iWGAWTUM$TCgDn1KcavS0s.OV8lacMTUkxTByfzcGlFlYUWroxYuU7M/9bIodhRO7nXGzMweUxvbk8mJmQl8Bh44cRktUj.
+  ansible:
+    privilege: 15
+    role: network-admin
+    sha512_password: $6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/
+  demo:
+    privilege: 15
+    role: network-admin
+    sha512_password: $6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/
+cvp_instance_ips:
+- 10.73.254.254
+cvp_ingestauth_key: telarista
+mgmt_gateway: 10.73.254.253
+mgmt_interface: Management0
+name_servers:
+- 10.73.1.251
+ntp:
+  local_interface:
+    name: Management1
+    vrf: MGMT
+  servers:
+  - name: 10.73.254.253
+    vrf: MGMT
+  - name: 10.73.1.254
+    vrf: MGMT
+    preferred: true
+timezone: Europe/Paris
+snmp_server:
+  communities:
+    inetsix-ro:
+      access: rw
+      access_list_ipv4:
+        name: inetsix-snmp-acl
+      view: test
+validate_state_markdown_flavor: github
+custom_structured_configuration_prefix:
+- inetsix_
+inetsix_management_ssh:
+  enable: true
+  vrfs:
+    MGMT:
+      enable: true
+inetsix_aaa_authorization:
+  exec:
+    default: local
+ansible_connection: httpapi
+ansible_httpapi_port: '{{ansible_port}}'
+ansible_httpapi_host: 10.73.1.241
+ansible_httpapi_use_ssl: true
+ansible_httpapi_validate_certs: false
+ansible_network_os: eos
+ansible_user: ansible
+ansible_ssh_pass: ansible
+ansible_become: true
+ansible_become_method: enable
+ansible_host: 10.73.1.241
+node_type_keys:
+  spine:
+    type: spine
+    default_evpn_role: server
+  l3leaf:
+    type: l3leaf
+    connected_endpoints: true
+    default_evpn_role: client
+    mlag_support: true
+    network_services:
+      l2: true
+      l3: true
+    vtep: true
+  edge:
+    type: edge
+    connected_endpoints: true
+    mlag_support: true
+    network_services:
+      l2: true
+    underlay_router: false
+    uplink_type: port-channel
+output_format:
+- text
+- markdown
+commands_list:
+- show lldp neighbors
+- show ip interface brief
+- show interfaces description
+- show version
+- show ip bgp summary vrf all
+- show bgp evpn summary
+- show bgp evpn
+- show ip route vrf all
+- show vxlan vtep
+- show vxlan address-table
+- show vxlan vni
+- show vlan
+- show mac address-table
+- show bfd peers
+- show mlag detail
+- show mlag config-sanity
+- show system environment cooling
+fabric_name: EAPI_FABRIC
+p2p_uplinks_mtu: 1500
+bfd_multihop:
+  interval: 1200
+  min_rx: 1200
+  multiplier: 3
+bgp_as: 65000
+isis_area_id: '49.0001'
+isis_site_id: '0001'
+underlay_ospf_process_id: 100
+underlay_ospf_area: 0.0.0.0
+underlay_ospf_max_lsa: 12000
+vxlan_vlan_aware_bundles: true
+evpn_import_prunning: true
+evpn_overlay_bgp_rtc: false
+bgp_peer_groups:
+  IPv4_UNDERLAY_PEERS:
+    password: AQQvKeimxJu+uGQ/yYvv9w==
+  EVPN_OVERLAY_PEERS:
+    password: q+VNViP5i4rVjW1cxFv2wA==
+  MLAG_IPv4_UNDERLAY_PEER:
+    password: vnEaG8gMeQf3d3cN6PktXQ==
+spine:
+  defaults:
+    platform: vEOS-LAB
+    bgp_as: 65001
+    loopback_ipv4_pool: 192.168.1.0/24
+    bgp_defaults:
+    - no bgp default ipv4-unicast
+    - distance bgp 20 200 200
+    - graceful-restart restart-time 300
+    - graceful-restart
+    mlag_peer_ipv4_pool: 172.31.253.0/31
+    mlag_peer_l3_ipv4_pool: 172.31.253.2/31
+  nodes:
+    EAPI-SPINE1:
+      id: 1
+      mgmt_ip: 10.73.254.101/24
+      mac_address: 0c:1d:c0:1d:62:01
+    EAPI-SPINE2:
+      id: 2
+      mgmt_ip: 10.73.254.102/24
+      mac_address: 0c:1d:c0:1d:62:02
+l3leaf:
+  defaults:
+    loopback_ipv4_pool: 192.168.255.0/24
+    loopback_ipv4_offset: 2
+    vtep_loopback_ipv4_pool: 192.168.254.0/24
+    uplink_interfaces:
+    - Ethernet1
+    - Ethernet2
+    uplink_switches:
+    - EAPI-SPINE1
+    - EAPI-SPINE2
+    uplink_ipv4_pool: 172.31.255.0/24
+    evpn_route_servers:
+    - EAPI-SPINE1
+    - EAPI-SPINE2
+    mlag_peer_ipv4_pool: 172.31.253.0/31
+    mlag_peer_l3_ipv4_pool: 172.31.253.2/31
+    mlag_interfaces:
+    - Ethernet3
+    - Ethernet4
+    virtual_router_mac_address: 00:1c:73:00:dc:01
+    bgp_defaults:
+    - no bgp default ipv4-unicast
+    - distance bgp 20 200 200
+    - graceful-restart restart-time 300
+    - graceful-restart
+    spanning_tree_priority: 4096
+    spanning_tree_mode: mstp
+  node_groups:
+    EAPI_LEAF1:
+      bgp_as: 65101
+      filter:
+        tenants:
+        - Tenant_A
+        - Tenant_B
+        tags:
+        - POD01
+        - DC1
+      nodes:
+        EAPI-LEAF1A:
+          id: 1
+          mgmt_ip: 10.73.254.11/24
+          uplink_switch_interfaces:
+          - Ethernet1
+          - Ethernet1
+          mac_address: 0c:1d:c0:1d:62:11
+        EAPI-LEAF1B:
+          id: 2
+          mgmt_ip: 10.73.254.12/24
+          uplink_switch_interfaces:
+          - Ethernet2
+          - Ethernet2
+          mac_address: 0c:1d:c0:1d:62:12
+    EAPI_LEAF2:
+      bgp_as: 65102
+      filter:
+        tenants:
+        - Tenant_A
+        - Tenant_B
+        tags:
+        - POD02
+        - DC1
+      nodes:
+        EAPI-LEAF2A:
+          id: 3
+          mgmt_ip: 10.73.254.13/24
+          mac_address: 0c:1d:c0:1d:62:13
+          uplink_switch_interfaces:
+          - Ethernet3
+          - Ethernet3
+        EAPI-LEAF2B:
+          id: 4
+          mgmt_ip: 10.73.254.14/24
+          mac_address: 0c:1d:c0:1d:62:14
+          uplink_switch_interfaces:
+          - Ethernet4
+          - Ethernet4
+    EAPI_LEAF_ESI:
+      mlag: false
+      filter:
+        tenants:
+        - Tenant_A
+        - Tenant_B
+        tags:
+        - POD03
+        - DC1
+      nodes:
+        EAPI-LEAF3A:
+          id: 5
+          bgp_as: 65103
+          mgmt_ip: 10.73.254.17/24
+          mac_address: 0c:1d:c0:1d:62:17
+          uplink_switch_interfaces:
+          - Ethernet7
+          - Ethernet7
+        EAPI-LEAF4A:
+          id: 6
+          bgp_as: 65104
+          mgmt_ip: 10.73.254.18/24
+          mac_address: 0c:1d:c0:1d:62:18
+          uplink_switch_interfaces:
+          - Ethernet8
+          - Ethernet8
+    EAPI_BL01:
+      bgp_as: 65105
+      filter:
+        tenants:
+        - Tenant_A
+        - Tenant_B
+        tags:
+        - BORDER
+        - DC1
+      nodes:
+        EAPI-BL01A:
+          id: 7
+          mgmt_ip: 10.73.254.15/24
+          mac_address: 0c:1d:c0:1d:62:15
+          uplink_switch_interfaces:
+          - Ethernet5
+          - Ethernet5
+        EAPI-BL01B:
+          id: 8
+          mgmt_ip: 10.73.254.16/24
+          mac_address: 0c:1d:c0:1d:62:16
+          uplink_switch_interfaces:
+          - Ethernet6
+          - Ethernet6
+edge:
+  defaults:
+    uplink_switches:
+    - EAPI-LEAF1A
+    - EAPI-LEAF1B
+    uplink_interfaces:
+    - Ethernet1
+    - Ethernet2
+    mlag_peer_ipv4_pool: 172.31.253.0/31
+    mlag_peer_l3_ipv4_pool: 172.31.253.2/31
+  node_groups:
+    EAPI_EDGE_LEAF1:
+      uplink_switches:
+      - EAPI-LEAF1A
+      - EAPI-LEAF1B
+      filter:
+        tenants:
+        - Tenant_A
+        - Tenant_B
+        tags:
+        - POD01
+        - DC1
+      nodes:
+        EAPI-AGG01:
+          id: 9
+          mgmt_ip: 10.73.254.21/24
+          mac_address: 0c:1d:c0:1d:62:21
+          uplink_switch_interfaces:
+          - Ethernet5
+          - Ethernet5
+    EAPI_EDGE_LEAF2:
+      uplink_switches:
+      - EAPI-LEAF2A
+      - EAPI-LEAF2B
+      filter:
+        tenants:
+        - Tenant_A
+        - Tenant_B
+        tags:
+        - POD02
+        - DC1
+      nodes:
+        EAPI-AGG02:
+          id: 10
+          mgmt_ip: 10.73.254.22/24
+          mac_address: 0c:1d:c0:1d:62:22
+          uplink_switch_interfaces:
+          - Ethernet5
+          - Ethernet5
+bgp_defaults_veos:
+- no bgp default ipv4-unicast
+- distance bgp 20 200 200
+- graceful-restart restart-time 300
+- graceful-restart
+mlag_interfaces_veos:
+- Ethernet3
+- Ethernet4
+port_profiles:
+  ALL:
+    mode: trunk
+    vlans: 1-4000
+  A-PR01-DMZ:
+    mode: access
+    vlans: '110'
+  A-PR01-TRUST:
+    mode: access
+    vlans: '111'
+  B-ELAN-201:
+    mode: access
+    vlans: '201'
+  STORM_CONTROL_UNUSED:
+    mode: trunk
+    vlans: 1-4000
+    storm_control:
+      all:
+        level: 10
+        unit: percent
+      broadcast:
+        level: 100
+        unit: pps
+      multicast:
+        level: 1
+        unit: percent
+      unknown-unicast:
+        level: 2
+        unit: percent
+servers:
+  SRV-POD01:
+    rack: POD01
+    adapters:
+    - type: nic
+      server_ports:
+      - Eth1
+      switch_ports:
+      - Ethernet3
+      switches:
+      - EAPI-AGG01
+      profile: ALL
+  SRV-POD02:
+    rack: POD02
+    adapters:
+    - type: nic
+      server_ports:
+      - Eth1
+      switch_ports:
+      - Ethernet3
+      switches:
+      - EAPI-AGG02
+      profile: ALL
+  SRV-POD03:
+    rack: POD03
+    adapters:
+    - server_ports:
+      - Eth1
+      - Eth2
+      switch_ports:
+      - Ethernet5
+      - Ethernet5
+      switches:
+      - EAPI-LEAF3A
+      - EAPI-LEAF4A
+      profile: ALL
+      port_channel:
+        state: present
+        description: PortChanne1
+        mode: active
+        short_esi: 0303:0202:0101
+svi_profiles:
+  GENERIC:
+    mtu: 1560
+    enabled: true
+  GENERIC_FULL:
+    name: GENERIC Name
+    mtu: 1560
+    enabled: false
+    ip_address_virtual: 10.1.10.254/24
+  WITH_NO_MTU:
+    enabled: true
+  WITH_DHCP_01_SNOOPING:
+    enabled: true
+    ip_address_virtual: 10.1.11.254/24
+    igmp_snooping_enabled: false
+    ip_helpers:
+      1.1.1.1:
+        source_interface: lo100
+        source_vrf: TEST
+  WITH_DHCP_02:
+    tags:
+    - DC1
+    enabled: true
+    ip_helpers:
+      1.1.1.1:
+        source_interface: lo100
+        source_vrf: MGMT
+mlag_ibgp_peering_vrfs:
+  base_vlan: 3000
+evpn_rt_type:
+  admin_subfield: vni
+tenants:
+  Tenant_A:
+    mac_vrf_vni_base: 10000
+    enable_mlag_ibgp_peering_vrfs: true
+    vrfs:
+      TENANT_A_PROJECT01:
+        vrf_vni: 11
+        static_routes:
+        - destination_address_prefix: 1.1.1.0/24
+          gateway: 10.1.10.1
+          nodes:
+          - EAPI-BL01A
+          - EAPI-BL01B
+        redistribute_static: true
+        svis:
+          110:
+            name: PR01-DEMO
+            tags:
+            - DC1
+            enabled: true
+            ip_address_virtual: 10.1.10.254/24
+          111:
+            name: PR01-TRUST
+            enabled: true
+            tags:
+            - POD01
+            - POD02
+            profile: WITH_DHCP_01_SNOOPING
+          112:
+            name: PR01-TRUST
+            enabled: true
+            tags:
+            - POD01
+            - POD02
+            ip_address_virtual: 10.1.12.254/24
+            igmp_snooping_enabled: false
+          113:
+            name: PR01-DMZ
+            tags:
+            - POD03
+            enabled: true
+            ip_address_virtual: 10.1.13.254/24
+            igmp_snooping_enabled: true
+      PURE_TYPE5:
+        vrf_vni: 13
+        svis:
+          131:
+            name: vl131_no_vni
+            tags:
+            - POD01
+            enabled: true
+            ip_address_virtual: 10.1.31.254/24
+            vxlan: false
+          132:
+            name: vl132_no_vni
+            tags:
+            - POD02
+            enabled: true
+            ip_address_virtual: 10.1.32.254/24
+            vxlan: false
+  Tenant_B:
+    mac_vrf_vni_base: 20000
+    enable_mlag_ibgp_peering_vrfs: true
+    l2vlans:
+      201:
+        name: B-ELAN-201
+        tags:
+        - DC1
+        igmp_snooping: false
+  CENTRAL_ROUTING_LAB:
+    mac_vrf_vni_base: 30000
+    vrfs:
+      CENTRAL_ROUTING:
+        vrf_vni: 13
+        svis:
+          301:
+            name: CENTRAL_LAN_01
+            tags:
+            - POD05_NODE01
+            enabled: true
+            ip_address_virtual: 10.3.1.254/24
+          302:
+            name: CENTRAL_LAN_02
+            tags:
+            - POD05_NODE02
+            - POD05_NODE01
+            enabled: true
+            ip_address_virtual: 10.3.2.254/24
+inventory_file: /home/tom/arista-avd/avd-lab-validation/inventories/containerlab/inventory.yml
+inventory_dir: /home/tom/arista-avd/avd-lab-validation/inventories/containerlab
+inventory_hostname: EAPI-AGG02
+inventory_hostname_short: EAPI-AGG02
+group_names:
+- EAPI
+- EAPI_EDGE
+- EAPI_EDGE_LEAF2
+- EAPI_FABRIC
+- EAPI_PORTS
+- EAPI_SERVICES
+- EOS
+ansible_facts:
+  switch:
+    type: edge
+    node_type_key: edge
+    connected_endpoints: true
+    default_evpn_role: none
+    mlag_support: true
+    network_services_l2: true
+    network_services_l3: false
+    underlay_router: false
+    uplink_type: port-channel
+    vtep: false
+    ip_addressing:
+      router_id: ip_addressing/router-id.j2
+      mlag_ip_primary: ip_addressing/mlag-ip-primary.j2
+      mlag_ip_secondary: ip_addressing/mlag-ip-secondary.j2
+      mlag_l3_ip_primary: ip_addressing/mlag-l3-ip-primary.j2
+      mlag_l3_ip_secondary: ip_addressing/mlag-l3-ip-secondary.j2
+      p2p_uplinks_ip: ip_addressing/p2p-uplinks-ip.j2
+      p2p_uplinks_peer_ip: ip_addressing/p2p-uplinks-peer-ip.j2
+      vtep_ip_mlag: ip_addressing/vtep-ip-mlag.j2
+      vtep_ip: ip_addressing/vtep-ip.j2
+    interface_descriptions:
+      underlay_ethernet_interfaces: interface_descriptions/underlay/ethernet-interfaces.j2
+      underlay_port_channel_interfaces: interface_descriptions/underlay/port-channel-interfaces.j2
+      connected_endpoints_ethernet_interfaces: interface_descriptions/connected_endpoints/ethernet-interfaces.j2
+      connected_endpoints_port_channel_interfaces: interface_descriptions/connected_endpoints/port-channel-interfaces.j2
+      overlay_loopback_interface: interface_descriptions/loopback_interfaces/overlay-loopback.j2
+      vtep_loopback_interface: interface_descriptions/loopback_interfaces/vtep-loopback.j2
+    group: EAPI_EDGE_LEAF2
+    id: 10
+    mgmt_ip: 10.73.254.22/24
+    platform_settings:
+      platforms:
+      - default
+      reload_delay:
+        mlag: 300
+        non_mlag: 330
+      feature_support:
+        queue_monitor_length_notify: false
+    underlay_routing_protocol: ebgp
+    overlay_routing_protocol: ebgp
+    filter_tenants:
+    - Tenant_A
+    - Tenant_B
+    filter_tags:
+    - POD02
+    - DC1
+    igmp_snooping_enabled: true
+    max_uplink_switches: 2
+    max_parallel_uplinks: 1
+    uplink_switches:
+    - EAPI-LEAF2A
+    - EAPI-LEAF2B
+    uplink_switch_interfaces:
+    - Ethernet5
+    - Ethernet5
+    uplink_interfaces:
+    - Ethernet1
+    - Ethernet2
+    mlag: false
+    tenants:
+      Tenant_A:
+        vrfs:
+          PURE_TYPE5:
+            svis:
+            - 132
+          TENANT_A_PROJECT01:
+            svis:
+            - 110
+            - 111
+            - 112
+        l2vlans: []
+      Tenant_B:
+        vrfs: {}
+        l2vlans:
+        - 201
+    vlans:
+    - 132
+    - 110
+    - 111
+    - 112
+    - 201
+  topology:
+    links:
+      Ethernet1:
+        peer: EAPI-LEAF2A
+        peer_interface: Ethernet5
+        peer_type: l3leaf
+        type: underlay_l2
+        channel_description: EAPI_LEAF2
+        channel_group_id: 1
+        peer_channel_group_id: 5
+        vlans:
+        - 132
+        - 110
+        - 111
+        - 112
+        - 201
+      Ethernet2:
+        peer: EAPI-LEAF2B
+        peer_interface: Ethernet5
+        peer_type: l3leaf
+        type: underlay_l2
+        channel_description: EAPI_LEAF2
+        channel_group_id: 1
+        peer_channel_group_id: 5
+        vlans:
+        - 132
+        - 110
+        - 111
+        - 112
+        - 201
+    peers:
+    - EAPI-LEAF2A
+    - EAPI-LEAF2B
+    vlans:
+    - 132
+    - 110
+    - 111
+    - 112
+    - 201
+switch:
+  type: edge
+  node_type_key: edge
+  connected_endpoints: true
+  default_evpn_role: none
+  mlag_support: true
+  network_services_l2: true
+  network_services_l3: false
+  underlay_router: false
+  uplink_type: port-channel
+  vtep: false
+  ip_addressing:
+    router_id: ip_addressing/router-id.j2
+    mlag_ip_primary: ip_addressing/mlag-ip-primary.j2
+    mlag_ip_secondary: ip_addressing/mlag-ip-secondary.j2
+    mlag_l3_ip_primary: ip_addressing/mlag-l3-ip-primary.j2
+    mlag_l3_ip_secondary: ip_addressing/mlag-l3-ip-secondary.j2
+    p2p_uplinks_ip: ip_addressing/p2p-uplinks-ip.j2
+    p2p_uplinks_peer_ip: ip_addressing/p2p-uplinks-peer-ip.j2
+    vtep_ip_mlag: ip_addressing/vtep-ip-mlag.j2
+    vtep_ip: ip_addressing/vtep-ip.j2
+  interface_descriptions:
+    underlay_ethernet_interfaces: interface_descriptions/underlay/ethernet-interfaces.j2
+    underlay_port_channel_interfaces: interface_descriptions/underlay/port-channel-interfaces.j2
+    connected_endpoints_ethernet_interfaces: interface_descriptions/connected_endpoints/ethernet-interfaces.j2
+    connected_endpoints_port_channel_interfaces: interface_descriptions/connected_endpoints/port-channel-interfaces.j2
+    overlay_loopback_interface: interface_descriptions/loopback_interfaces/overlay-loopback.j2
+    vtep_loopback_interface: interface_descriptions/loopback_interfaces/vtep-loopback.j2
+  group: EAPI_EDGE_LEAF2
+  id: 10
+  mgmt_ip: 10.73.254.22/24
+  platform_settings:
+    platforms:
+    - default
+    reload_delay:
+      mlag: 300
+      non_mlag: 330
+    feature_support:
+      queue_monitor_length_notify: false
+  underlay_routing_protocol: ebgp
+  overlay_routing_protocol: ebgp
+  filter_tenants:
+  - Tenant_A
+  - Tenant_B
+  filter_tags:
+  - POD02
+  - DC1
+  igmp_snooping_enabled: true
+  max_uplink_switches: 2
+  max_parallel_uplinks: 1
+  uplink_switches:
+  - EAPI-LEAF2A
+  - EAPI-LEAF2B
+  uplink_switch_interfaces:
+  - Ethernet5
+  - Ethernet5
+  uplink_interfaces:
+  - Ethernet1
+  - Ethernet2
+  mlag: false
+  tenants:
+    Tenant_A:
+      vrfs:
+        PURE_TYPE5:
+          svis:
+          - 132
+        TENANT_A_PROJECT01:
+          svis:
+          - 110
+          - 111
+          - 112
+      l2vlans: []
+    Tenant_B:
+      vrfs: {}
+      l2vlans:
+      - 201
+  vlans:
+  - 132
+  - 110
+  - 111
+  - 112
+  - 201
+topology:
+  links:
+    Ethernet1:
+      peer: EAPI-LEAF2A
+      peer_interface: Ethernet5
+      peer_type: l3leaf
+      type: underlay_l2
+      channel_description: EAPI_LEAF2
+      channel_group_id: 1
+      peer_channel_group_id: 5
+      vlans:
+      - 132
+      - 110
+      - 111
+      - 112
+      - 201
+    Ethernet2:
+      peer: EAPI-LEAF2B
+      peer_interface: Ethernet5
+      peer_type: l3leaf
+      type: underlay_l2
+      channel_description: EAPI_LEAF2
+      channel_group_id: 1
+      peer_channel_group_id: 5
+      vlans:
+      - 132
+      - 110
+      - 111
+      - 112
+      - 201
+  peers:
+  - EAPI-LEAF2A
+  - EAPI-LEAF2B
+  vlans:
+  - 132
+  - 110
+  - 111
+  - 112
+  - 201
+playbook_dir: /home/tom/arista-avd/avd-lab-validation/playbooks
+ansible_playbook_python: /home/tom/.pyenv/versions/3.8.9/envs/arista-avd/bin/python3.8
+ansible_config_file: /home/tom/arista-avd/avd-lab-validation/ansible.cfg
+groups:
+  all:
+  - EAPI-SPINE1
+  - EAPI-SPINE2
+  - EAPI-AGG01
+  - EAPI-AGG02
+  - EAPI-LEAF1A
+  - EAPI-LEAF1B
+  - EAPI-LEAF2A
+  - EAPI-LEAF2B
+  - EAPI-LEAF3A
+  - EAPI-LEAF4A
+  - EAPI-BL01A
+  - EAPI-BL01B
+  ungrouped: []
+  EAPI:
+  - EAPI-SPINE1
+  - EAPI-SPINE2
+  - EAPI-AGG01
+  - EAPI-AGG02
+  - EAPI-LEAF1A
+  - EAPI-LEAF1B
+  - EAPI-LEAF2A
+  - EAPI-LEAF2B
+  - EAPI-LEAF3A
+  - EAPI-LEAF4A
+  - EAPI-BL01A
+  - EAPI-BL01B
+  EAPI_FABRIC:
+  - EAPI-SPINE1
+  - EAPI-SPINE2
+  - EAPI-AGG01
+  - EAPI-AGG02
+  - EAPI-LEAF1A
+  - EAPI-LEAF1B
+  - EAPI-LEAF2A
+  - EAPI-LEAF2B
+  - EAPI-LEAF3A
+  - EAPI-LEAF4A
+  - EAPI-BL01A
+  - EAPI-BL01B
+  EAPI_SPINES:
+  - EAPI-SPINE1
+  - EAPI-SPINE2
+  EAPI_L3LEAFS:
+  - EAPI-LEAF1A
+  - EAPI-LEAF1B
+  - EAPI-LEAF2A
+  - EAPI-LEAF2B
+  - EAPI-LEAF3A
+  - EAPI-LEAF4A
+  - EAPI-BL01A
+  - EAPI-BL01B
+  EAPI_LEAF1:
+  - EAPI-LEAF1A
+  - EAPI-LEAF1B
+  EAPI_LEAF2:
+  - EAPI-LEAF2A
+  - EAPI-LEAF2B
+  EAPI_LEAF_ESI:
+  - EAPI-LEAF3A
+  - EAPI-LEAF4A
+  EAPI_BL01:
+  - EAPI-BL01A
+  - EAPI-BL01B
+  EAPI_EDGE:
+  - EAPI-AGG01
+  - EAPI-AGG02
+  EAPI_EDGE_LEAF1:
+  - EAPI-AGG01
+  EAPI_EDGE_LEAF2:
+  - EAPI-AGG02
+  EAPI_SERVICES:
+  - EAPI-AGG01
+  - EAPI-AGG02
+  - EAPI-LEAF1A
+  - EAPI-LEAF1B
+  - EAPI-LEAF2A
+  - EAPI-LEAF2B
+  - EAPI-LEAF3A
+  - EAPI-LEAF4A
+  - EAPI-BL01A
+  - EAPI-BL01B
+  EAPI_L2LEAFS: []
+  EAPI_PORTS:
+  - EAPI-AGG01
+  - EAPI-AGG02
+  - EAPI-LEAF1A
+  - EAPI-LEAF1B
+  - EAPI-LEAF2A
+  - EAPI-LEAF2B
+  - EAPI-LEAF3A
+  - EAPI-LEAF4A
+  - EAPI-BL01A
+  - EAPI-BL01B
+  EOS:
+  - EAPI-SPINE1
+  - EAPI-SPINE2
+  - EAPI-AGG01
+  - EAPI-AGG02
+  - EAPI-LEAF1A
+  - EAPI-LEAF1B
+  - EAPI-LEAF2A
+  - EAPI-LEAF2B
+  - EAPI-LEAF3A
+  - EAPI-LEAF4A
+  - EAPI-BL01A
+  - EAPI-BL01B
+omit: __omit_place_holder__1ee4bc8f91f0a6adaa25e2aae1a859cdbd5e8aec
+ansible_version:
+  string: 2.12.1
+  full: 2.12.1
+  major: 2
+  minor: 12
+  revision: 1
+ansible_check_mode: false
+ansible_diff_mode: true
+ansible_forks: 15
+ansible_inventory_sources:
+- /home/tom/arista-avd/avd-lab-validation/inventories/containerlab/inventory.yml
+ansible_skip_tags: []
+ansible_run_tags:
+- build
+ansible_verbosity: 0

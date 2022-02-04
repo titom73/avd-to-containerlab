@@ -1,0 +1,5 @@
+System cooling status is: Unknown
+Ambient temperature: Unknown
+           Config Actual        Speed     Stable
+Fan Status  Speed  Speed Uptime Stability Uptime
+--- ------ ------ ------ ------ --------- ------

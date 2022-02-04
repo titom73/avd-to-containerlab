@@ -1,0 +1,13 @@
+ansible_connection: httpapi
+ansible_httpapi_port: '{{ansible_port}}'
+ansible_httpapi_host: '{{ ansible_host }}'
+ansible_httpapi_use_ssl: true
+ansible_httpapi_validate_certs: false
+
+ansible_network_os: eos
+ansible_user: ansible
+ansible_ssh_pass: ansible
+ansible_become: yes
+ansible_become_method: enable
+
+ansible_host: 10.73.1.241

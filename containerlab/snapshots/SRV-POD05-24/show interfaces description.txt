@@ -1,0 +1,11 @@
+Interface                      Status         Protocol           Description
+Et1                            up             up                 Connected to L2LEAF02 Ethernet5
+Et2                            up             up                 
+Et3                            up             up                 
+Et4                            up             up                 
+Et5                            up             up                 
+Et6                            up             up                 
+Et7                            up             up                 
+Et8                            up             up                 
+Ma1                            up             up                 oob_management
+Vl302                          up             up                 SVI for Central Routing Right side

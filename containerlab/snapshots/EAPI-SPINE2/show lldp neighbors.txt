@@ -1,0 +1,36 @@
+Last table change time   : 18:09:26 ago
+Number of table inserts  : 60
+Number of table deletes  : 31
+Number of table drops    : 0
+Number of table age-outs : 26
+
+Port       Neighbor Device ID               Neighbor Port ID           TTL
+Et1        EAPI-LEAF1A                      Ethernet2                  120
+Et2        EAPI-LEAF1B                      Ethernet2                  120
+Et3        EAPI-LEAF2A                      Ethernet2                  120
+Et4        EAPI-LEAF2B                      Ethernet2                  120
+Et5        EAPI-BL01A                       Ethernet2                  120
+Et6        EAPI-BL01B                       Ethernet2                  120
+Et7        EAPI-LEAF3A                      Ethernet2                  120
+Et8        EAPI-LEAF4A                      Ethernet2                  120
+Et9        EAPI-CL01A                       Ethernet2                  120
+Et10       EAPI-CL01B                       Ethernet2                  120
+Et11       EAPI-L2LEAF01                    Ethernet2                  120
+Et12       EAPI-L2LEAF02                    Ethernet2                  120
+Et13       EAPI-RS02                        Ethernet1                  120
+Ma1        EAPI-AGG02                       Management1                120
+Ma1        EAPI-LEAF1B                      Management1                120
+Ma1        EAPI-AGG01                       Management1                120
+Ma1        EAPI-BL01B                       Management1                120
+Ma1        EAPI-LEAF4A                      Management1                120
+Ma1        EAPI-LEAF1A                      Management1                120
+Ma1        EAPI-LEAF2A                      Management1                120
+Ma1        EAPI-LEAF2B                      Management1                120
+Ma1        EAPI-LEAF3A                      Management1                120
+Ma1        EAPI-BL01A                       Management1                120
+Ma1        EAPI-SPINE1                      Management1                120
+Ma1        EAPI-CL01A                       Management1                120
+Ma1        EAPI-L2LEAF02                    Management1                120
+Ma1        EAPI-L2LEAF01                    Management1                120
+Ma1        EAPI-CL01B                       Management1                120
+Ma1        SRV-POD05-24                     Management1                120

@@ -1,0 +1,106 @@
+VRF: default
+Codes: C - connected, S - static, K - kernel, 
+       O - OSPF, IA - OSPF inter area, E1 - OSPF external type 1,
+       E2 - OSPF external type 2, N1 - OSPF NSSA external type 1,
+       N2 - OSPF NSSA external type2, B - BGP, B I - iBGP, B E - eBGP,
+       R - RIP, I L1 - IS-IS level 1, I L2 - IS-IS level 2,
+       O3 - OSPFv3, A B - BGP Aggregate, A O - OSPF Summary,
+       NG - Nexthop Group Static Route, V - VXLAN Control Service,
+       DH - DHCP client installed default route, M - Martian,
+       DP - Dynamic Policy Route, L - VRF Leaked,
+       RC - Route Cache Route
+
+Gateway of last resort is not set
+
+ C        172.31.253.0/31 is directly connected, Vlan4094
+ C        172.31.253.2/31 is directly connected, Vlan4093
+ C        172.31.255.0/31 is directly connected, Ethernet1
+ C        172.31.255.2/31 is directly connected, Ethernet2
+ B E      192.168.0.2/32 [20/0] via 172.31.255.0, Ethernet1
+ B E      192.168.0.3/32 [20/0] via 172.31.255.2, Ethernet2
+ B E      192.168.1.1/32 [20/0] via 172.31.255.0, Ethernet1
+ B E      192.168.1.2/32 [20/0] via 172.31.255.2, Ethernet2
+ B E      192.168.252.2/32 [20/0] via 172.31.255.0, Ethernet1
+                                  via 172.31.255.2, Ethernet2
+ B E      192.168.252.3/32 [20/0] via 172.31.255.0, Ethernet1
+                                  via 172.31.255.2, Ethernet2
+ B E      192.168.253.2/32 [20/0] via 172.31.255.0, Ethernet1
+                                  via 172.31.255.2, Ethernet2
+ B E      192.168.253.3/32 [20/0] via 172.31.255.0, Ethernet1
+                                  via 172.31.255.2, Ethernet2
+ C        192.168.254.3/32 is directly connected, Loopback1
+ B E      192.168.254.5/32 [20/0] via 172.31.255.0, Ethernet1
+                                  via 172.31.255.2, Ethernet2
+ B E      192.168.254.7/32 [20/0] via 172.31.255.0, Ethernet1
+                                  via 172.31.255.2, Ethernet2
+ B E      192.168.254.8/32 [20/0] via 172.31.255.0, Ethernet1
+                                  via 172.31.255.2, Ethernet2
+ B E      192.168.254.9/32 [20/0] via 172.31.255.0, Ethernet1
+                                  via 172.31.255.2, Ethernet2
+ B E      192.168.254.11/32 [20/0] via 172.31.255.0, Ethernet1
+                                   via 172.31.255.2, Ethernet2
+ C        192.168.255.3/32 is directly connected, Loopback0
+ B I      192.168.255.4/32 [200/0] via 172.31.253.3, Vlan4093
+ B E      192.168.255.5/32 [20/0] via 172.31.255.0, Ethernet1
+                                  via 172.31.255.2, Ethernet2
+ B E      192.168.255.6/32 [20/0] via 172.31.255.0, Ethernet1
+                                  via 172.31.255.2, Ethernet2
+ B E      192.168.255.7/32 [20/0] via 172.31.255.0, Ethernet1
+                                  via 172.31.255.2, Ethernet2
+ B E      192.168.255.8/32 [20/0] via 172.31.255.0, Ethernet1
+                                  via 172.31.255.2, Ethernet2
+ B E      192.168.255.9/32 [20/0] via 172.31.255.0, Ethernet1
+                                  via 172.31.255.2, Ethernet2
+ B E      192.168.255.10/32 [20/0] via 172.31.255.0, Ethernet1
+                                   via 172.31.255.2, Ethernet2
+ B E      192.168.255.11/32 [20/0] via 172.31.255.0, Ethernet1
+                                   via 172.31.255.2, Ethernet2
+ B E      192.168.255.12/32 [20/0] via 172.31.255.0, Ethernet1
+                                   via 172.31.255.2, Ethernet2
+
+
+VRF: MGMT
+Codes: C - connected, S - static, K - kernel, 
+       O - OSPF, IA - OSPF inter area, E1 - OSPF external type 1,
+       E2 - OSPF external type 2, N1 - OSPF NSSA external type 1,
+       N2 - OSPF NSSA external type2, B - BGP, B I - iBGP, B E - eBGP,
+       R - RIP, I L1 - IS-IS level 1, I L2 - IS-IS level 2,
+       O3 - OSPFv3, A B - BGP Aggregate, A O - OSPF Summary,
+       NG - Nexthop Group Static Route, V - VXLAN Control Service,
+       DH - DHCP client installed default route, M - Martian,
+       DP - Dynamic Policy Route, L - VRF Leaked,
+       RC - Route Cache Route
+
+Gateway of last resort:
+ S        0.0.0.0/0 [1/0] via 10.73.254.253, Management1
+
+ C        10.73.254.0/24 is directly connected, Management1
+
+! IP routing not enabled
+
+VRF: TENANT_A_PROJECT01
+Codes: C - connected, S - static, K - kernel, 
+       O - OSPF, IA - OSPF inter area, E1 - OSPF external type 1,
+       E2 - OSPF external type 2, N1 - OSPF NSSA external type 1,
+       N2 - OSPF NSSA external type2, B - BGP, B I - iBGP, B E - eBGP,
+       R - RIP, I L1 - IS-IS level 1, I L2 - IS-IS level 2,
+       O3 - OSPFv3, A B - BGP Aggregate, A O - OSPF Summary,
+       NG - Nexthop Group Static Route, V - VXLAN Control Service,
+       DH - DHCP client installed default route, M - Martian,
+       DP - Dynamic Policy Route, L - VRF Leaked,
+       RC - Route Cache Route
+
+Gateway of last resort is not set
+
+ B E      1.1.1.0/24 [20/0] via VTEP 192.168.254.9 VNI 11 router-mac 0e:1d:c0:25:65:41
+ B E      10.1.10.2/32 [20/0] via VTEP 192.168.254.5 VNI 11 router-mac 0e:1d:c0:a3:43:e0
+ C        10.1.10.0/24 is directly connected, Vlan110
+ C        10.1.11.0/24 is directly connected, Vlan111
+ B E      10.1.12.2/32 [20/0] via VTEP 192.168.254.5 VNI 11 router-mac 0e:1d:c0:a3:43:e0
+ C        10.1.12.0/24 is directly connected, Vlan112
+ B E      10.1.13.0/24 [20/0] via VTEP 192.168.254.8 VNI 11 router-mac 0c:1d:c0:d2:9e:98
+                              via VTEP 192.168.254.7 VNI 11 router-mac 0c:1d:c0:e4:77:7b
+ C        172.31.253.2/31 is directly connected, Vlan3010
+ B E      172.31.253.6/31 [20/0] via VTEP 192.168.254.5 VNI 11 router-mac 0e:1d:c0:a3:43:e0
+ B E      172.31.253.14/31 [20/0] via VTEP 192.168.254.9 VNI 11 router-mac 0e:1d:c0:25:65:41
+ B E      172.31.253.18/31 [20/0] via VTEP 192.168.254.11 VNI 11 router-mac 52:01:00:68:b4:46

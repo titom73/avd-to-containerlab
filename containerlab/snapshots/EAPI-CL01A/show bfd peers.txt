@@ -1,0 +1,11 @@
+VRF name: default
+-----------------
+DstAddr         MyDisc   YourDisc Interface/Transport     Type          LastUp  
+----------- ---------- ---------- ------------------- --------- --------------- 
+192.168.0.2 2653703672 1751611695                  NA multihop  08/27/21 17:14  
+192.168.0.3 3940807102 3661721393                  NA multihop  08/27/21 17:14  
+
+   LastDown            LastDiag    State 
+-------------- ------------------- ----- 
+         NA       No Diagnostic       Up 
+         NA       No Diagnostic       Up

@@ -1,0 +1,38 @@
+---
+- name: Build Switch configuration
+  hosts: [all]
+  tags:
+    - avd
+  collections:
+    - arista.avd
+    - arista.cvp
+    - arista.eos
+  tasks:
+    - name: generate intended variables
+      tags: [build]
+      import_role:
+        name: eos_designs
+
+    - name: generate device intended config and documentation
+      tags: [build]
+      import_role:
+        name: eos_cli_config_gen
+
+- name: Build containerlab topology
+  hosts: [all]
+  connection: local
+  gather_facts: false
+  collections:
+    - arista.avd
+    - arista.cvp
+    - inetsix.avd_tools
+  tasks:
+    - name: 'Build Containerlab Topology'
+      tags:
+        - containerlab
+      import_role:
+        name: inetsix.avd_tools.eos_designs_to_containerlab
+      vars:
+        mgmt_network_v4: 10.73.255.0/24
+        ceos_version: arista/ceos:4.27.1F
+        eapi_base: 8000

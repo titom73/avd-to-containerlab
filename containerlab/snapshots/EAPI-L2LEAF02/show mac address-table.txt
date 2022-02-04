@@ -1,0 +1,22 @@
+Mac Address Table
+------------------------------------------------------------------
+
+Vlan    Mac Address       Type        Ports      Moves   Last Move
+----    -----------       ----        -----      -----   ---------
+ 302    5001.0073.5ad7    DYNAMIC     Vx1        1       1:58:10 ago
+ 302    5001.00bf.cca4    DYNAMIC     Et5        1       1:58:10 ago
+1192    0c1d.c0d2.9e98    DYNAMIC     Vx1        1       18:10:23 ago
+1192    0c1d.c0e4.777b    DYNAMIC     Vx1        1       18:10:22 ago
+1192    0e1d.c025.6541    DYNAMIC     Vx1        1       18:10:22 ago
+1192    0e1d.c0a3.43e0    DYNAMIC     Vx1        1       18:10:11 ago
+1192    0e1d.c0f0.bdd1    DYNAMIC     Vx1        1       18:10:22 ago
+1192    5201.0068.b446    DYNAMIC     Vx1        1       18:10:20 ago
+1195    5201.0068.b446    DYNAMIC     Vx1        1       18:10:20 ago
+Total Mac Addresses for this criterion: 9
+
+          Multicast Mac Address Table
+------------------------------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       ----        -----
+Total Mac Addresses for this criterion: 0

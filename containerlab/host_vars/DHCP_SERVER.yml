@@ -1,0 +1,18 @@
+---
+ansible_python_interpreter: $(which python)
+ansible_port: 22
+
+ansible_user: tom
+ansible_ssh_pass: ansible
+ansible_become: yes
+ansible_become_method: sudo
+ansible_become_pass: ansible
+
+
+ztp_network_summary: 10.73.254.0/24
+ztp_pool_start: 10.73.254.200
+ztp_pool_end: 10.73.254.210
+ztp_lease_time: 300
+fabric_group: 'EAPI_FABRIC'
+ztp_mac_source: interface
+ztp_mode: offline

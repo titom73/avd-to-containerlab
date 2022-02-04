@@ -1,0 +1,36 @@
+vrfs:
+  MGMT:
+    ip_routing: false
+  central_301:
+    ip_routing: true
+    ipv6_routing: false
+  central_302:
+    ip_routing: true
+    ipv6_routing: false
+
+ethernet_interfaces:
+  Ethernet1:
+    description: "Connected to L2LEAF02 Ethernet5"
+    shutdown: false
+    type: switched
+    logging:
+      event:
+        link_status: true
+    vlans: "1-4000"
+    native_vlan: 1
+    mode: trunk
+    spanning_tree_bpdufilter: false
+    spanning_tree_bpduguard: false
+    spanning_tree_portfast: edge
+
+vlan_interfaces:
+  Vlan302:
+    description: SVI for Central Routing Right side
+    shutdown: false
+    vrf: central_302
+    ip_address: 10.3.2.2/24
+
+static_routes:
+  - vrf: central_302
+    destination_address_prefix: 0.0.0.0/0
+    gateway: 10.3.2.254

@@ -1,0 +1,17 @@
+---
+ansible_httpapi_host: '{{ ansible_host }}'
+ansible_connection: httpapi
+ansible_httpapi_use_ssl: true
+ansible_httpapi_validate_certs: false
+# ansible_httpapi_session_key: '/Users/tgrimonet/Projects/cvp-resource-api-testing/cvp.crt'
+ansible_network_os: eos
+ansible_httpapi_port: 443
+# Configuration to get Virtual Env information
+ansible_python_interpreter: $(which python)
+
+ztp_network_summary: 10.73.1.0/24
+ztp_pool_start: 10.73.1.200
+ztp_pool_end: 10.73.1.210
+ztp_lease_time: 300
+fabric_group: 'DC1_FABRIC'
+ztp_mac_source: system

@@ -1,0 +1,7 @@
+Remote VTEPS for Vxlan1:
+192.168.254.3
+192.168.254.7
+192.168.254.8
+192.168.254.9
+192.168.254.11
+Total number of remote VTEPS:  5

@@ -1,0 +1,23 @@
+Interface                      Status         Protocol           Description
+Et1                            up             up                 P2P_LINK_TO_EAPI-SPINE1_Ethernet10
+Et2                            up             up                 P2P_LINK_TO_EAPI-SPINE2_Ethernet10
+Et3                            up             up                 MLAG_PEER_EAPI-CL01A_Ethernet3
+Et4                            up             up                 MLAG_PEER_EAPI-CL01A_Ethernet4
+Et5                            up             up                 
+Et6                            up             up                 
+Et7                            up             up                 
+Et8                            up             up                 
+Lo0                            up             up                 EVPN_Overlay_Peering
+Lo1                            up             up                 VTEP_VXLAN_Tunnel_Source
+Ma1                            up             up                 oob_management
+Po3                            up             up                 MLAG_PEER_EAPI-CL01A_Po3
+Vl110                          up             up                 PR01-DEMO
+Vl301                          up             up                 CENTRAL_LAN_01
+Vl302                          up             up                 CENTRAL_LAN_02
+Vl1196                         up             up                 
+Vl1197                         up             up                 
+Vl3010                         up             up                 MLAG_PEER_L3_iBGP: vrf TENANT_A_PROJECT01
+Vl3012                         up             up                 MLAG_PEER_L3_iBGP: vrf CENTRAL_ROUTING
+Vl4093                         up             up                 MLAG_PEER_L3_PEERING
+Vl4094                         up             up                 MLAG_PEER
+Vx1                            up             up                 EAPI-CL01B_VTEP

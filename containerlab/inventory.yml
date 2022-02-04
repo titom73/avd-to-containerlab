@@ -1,0 +1,56 @@
+---
+ceos:
+  children:
+    ceos_fabric:
+      children:
+        ceos_spines:
+          vars:
+            type: spine
+          hosts:
+            ceos-spine1:
+            ceos-spine2:
+        ceos_l3leafs:
+          vars:
+            type: l3leaf
+          children:
+            ceos_leaf1:
+              hosts:
+                ceos-leaf1a:
+                ceos-leaf1b:
+            ceos_leaf2:
+              hosts:
+                ceos-leaf2a:
+                ceos-leaf2b:
+            ceos_leaf_esi:
+              hosts:
+                ceos-leaf3a:
+                ceos-leaf4a:
+            ceos_bl01:
+              hosts:
+                ceos-bl01a:
+                ceos-bl01b:
+        ceos_edge:
+          vars:
+            type: edge
+          children:
+            ceos_edge_leaf1:
+              hosts:
+                ceos-agg01:
+            ceos_edge_leaf2:
+              hosts:
+                ceos-agg02:
+    ceos_services:
+      children:
+        ceos_l3leafs:
+        ceos_l2leafs:
+        ceos_edge:
+    ceos_ports:
+      children:
+        ceos_l3leafs:
+        ceos_l2leafs:
+        ceos_edge:
+
+# group to run arista.avd.eos_validate_state
+eos:
+  children:
+    ceos_fabric:

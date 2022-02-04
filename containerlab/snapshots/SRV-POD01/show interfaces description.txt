@@ -1,0 +1,13 @@
+Interface                      Status         Protocol           Description
+Et1                            up             up                 
+Et2                            up             up                 
+Et3                            up             up                 
+Et4                            up             up                 
+Et5                            up             up                 
+Et6                            up             up                 
+Et7                            up             up                 
+Et8                            up             up                 
+Ma1                            up             up                 oob_management
+Vl110                          up             up                 SVI for Tenant A vlan 110
+Vl112                          up             up                 SVI for Tenant A vlan 112
+Vl201                          up             up                 SVI for Tenant B vlan 201

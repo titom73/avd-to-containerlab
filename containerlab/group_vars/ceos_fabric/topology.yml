@@ -1,0 +1,184 @@
+---
+# L3LS Fabric Values - update these values with caution,
+# SOME CHANGES COULD BE DISRUPTIVE.
+
+fabric_name: ceos_fabric
+
+# Update p2p mtu 9000 -> 1500
+p2p_uplinks_mtu: 1500
+
+# Adjust default bfd values
+bfd_multihop:
+  interval: 1200
+  min_rx: 1200
+  multiplier: 3
+
+# underlay_routing_protocol: isis
+# underlay_routing_protocol: ospf
+# overlay_routing_protocol: ibgp
+
+# AS Number to use when overlay_routing_protocol=ibgp
+bgp_as: 65000
+
+# ISIS Parameters when underlay_routing_protocol=ISIS
+isis_area_id: "49.0001"
+isis_site_id: "0001"
+
+# OSPF Parameters when underlay_routing_protocol=OSPF
+underlay_ospf_process_id: 100
+underlay_ospf_area: 0.0.0.0
+underlay_ospf_max_lsa: 12000
+
+# Enable vlan aware bundles
+vxlan_vlan_aware_bundles: true
+
+# VPN import prunning
+evpn_import_prunning: true
+
+# Enable Route Target Membership Constraint Address Family on EVPN overlay BGP peerings (Min. EOS 4.25.1F)
+# Requires use eBGP as overlay protocol.
+evpn_overlay_bgp_rtc: false
+
+# bgp peer groups passwords
+bgp_peer_groups:
+  IPv4_UNDERLAY_PEERS:
+    password: "AQQvKeimxJu+uGQ/yYvv9w=="
+  EVPN_OVERLAY_PEERS:
+    password: "q+VNViP5i4rVjW1cxFv2wA=="
+  MLAG_IPv4_UNDERLAY_PEER:
+    password: "vnEaG8gMeQf3d3cN6PktXQ=="
+
+# Enable Route Target Membership Constraint
+# evpn_overlay_bgp_rtc: true
+
+spine:
+  defaults:
+    platform: vEOS-LAB
+    bgp_as: 65001
+    loopback_ipv4_pool: 192.168.1.0/24
+    bgp_defaults: '{{bgp_defaults_veos}}'
+    mlag_peer_ipv4_pool: 172.31.253.0/31
+    mlag_peer_l3_ipv4_pool: 172.31.253.2/31
+  nodes:
+    ceos-spine1:
+      id: 1
+      mgmt_ip: 10.73.255.101/24
+      mac_address: '0c:1d:c0:1d:62:01'
+    ceos-spine2:
+      id: 2
+      mgmt_ip: 10.73.255.102/24
+      mac_address: '0c:1d:c0:1d:62:02'
+
+l3leaf:
+  defaults:
+    loopback_ipv4_pool: 192.168.255.0/24
+    loopback_ipv4_offset: 2
+    vtep_loopback_ipv4_pool: 192.168.254.0/24
+    uplink_interfaces: ['Ethernet1', 'Ethernet2']
+    uplink_switches: ['ceos-spine1', 'ceos-spine2']
+    uplink_ipv4_pool: 172.31.255.0/24
+    evpn_route_servers: ['ceos-spine1', 'ceos-spine2']
+    mlag_peer_ipv4_pool: 172.31.253.0/31
+    mlag_peer_l3_ipv4_pool: 172.31.253.2/31
+    mlag_interfaces: '{{ mlag_interfaces_veos }}'
+    virtual_router_mac_address: 00:1c:73:00:dc:01
+    bgp_defaults: '{{ bgp_defaults_veos }}'
+    spanning_tree_priority: 4096
+    spanning_tree_mode: mstp
+  node_groups:
+    ceos_leaf1:
+      bgp_as: 65101
+      filter:
+        tenants: [ 'Tenant_A', 'Tenant_B' ]
+        tags: [ 'POD01', 'DC1' ]
+      nodes:
+        ceos-leaf1a:
+          id: 11
+          mgmt_ip: 10.73.255.111/24
+          uplink_switch_interfaces: [Ethernet1, Ethernet1]
+          mac_address: '0c:1d:c0:1d:62:11'
+        ceos-leaf1b:
+          id: 12
+          mgmt_ip: 10.73.255.112/24
+          uplink_switch_interfaces: [Ethernet2, Ethernet2]
+          mac_address: '0c:1d:c0:1d:62:12'
+    ceos_leaf2:
+      bgp_as: 65102
+      filter:
+        tenants: [ 'Tenant_A', 'Tenant_B' ]
+        tags: [ 'POD02', 'DC1' ]
+      nodes:
+        ceos-leaf2a:
+          id: 13
+          mgmt_ip: 10.73.255.113/24
+          mac_address: '0c:1d:c0:1d:62:13'
+          uplink_switch_interfaces: [Ethernet3, Ethernet3]
+        ceos-leaf2b:
+          id: 14
+          mgmt_ip: 10.73.255.114/24
+          mac_address: '0c:1d:c0:1d:62:14'
+          uplink_switch_interfaces: [Ethernet4, Ethernet4]
+    ceos_leaf_esi:
+      mlag: false
+      filter:
+        tenants: [ 'Tenant_A', 'Tenant_B' ]
+        tags: [ 'POD03', 'DC1' ]
+      nodes:
+        ceos-leaf3a:
+          id: 15
+          bgp_as: 65103
+          mgmt_ip: 10.73.255.117/24
+          mac_address: '0c:1d:c0:1d:62:17'
+          uplink_switch_interfaces: [Ethernet7, Ethernet7]
+        ceos-leaf4a:
+          id: 16
+          bgp_as: 65104
+          mgmt_ip: 10.73.255.118/24
+          mac_address: '0c:1d:c0:1d:62:18'
+          uplink_switch_interfaces: [Ethernet8, Ethernet8]
+    ceos_bl01:
+      bgp_as: 65105
+      filter:
+        tenants: [ 'Tenant_A', 'Tenant_B' ]
+        tags: [ 'BORDER', 'DC1' ]
+      nodes:
+        ceos-bl01a:
+          id: 17
+          mgmt_ip: 10.73.255.115/24
+          mac_address: '0c:1d:c0:1d:62:15'
+          uplink_switch_interfaces: [Ethernet5, Ethernet5]
+        ceos-bl01b:
+          id: 18
+          mgmt_ip: 10.73.255.116/24
+          mac_address: '0c:1d:c0:1d:62:16'
+          uplink_switch_interfaces: [Ethernet6, Ethernet6]
+
+edge:
+  defaults:
+    uplink_switches: ['ceos-leaf1a', 'ceos-leaf1b']
+    uplink_interfaces: ['Ethernet1', 'Ethernet2']
+    mlag_peer_ipv4_pool: 172.31.253.0/31
+    mlag_peer_l3_ipv4_pool: 172.31.253.2/31
+  node_groups:
+    ceos_edge_leaf1:
+      uplink_switches: [ ceos-leaf1a, ceos-leaf1b ]
+      filter:
+        tenants: [ 'Tenant_A', 'Tenant_B' ]
+        tags: [ 'POD01', 'DC1' ]
+      nodes:
+        ceos-agg01:
+          id: 21
+          mgmt_ip: 10.73.255.121/24
+          mac_address: '0c:1d:c0:1d:62:21'
+          uplink_switch_interfaces: [ Ethernet5, Ethernet5 ]
+    ceos_edge_leaf2:
+      uplink_switches: [ ceos-leaf2a, ceos-leaf2b ]
+      filter:
+        tenants: [ 'Tenant_A', 'Tenant_B' ]
+        tags: [ 'POD02', 'DC1' ]
+      nodes:
+        ceos-agg02:
+          id: 22
+          mgmt_ip: 10.73.255.122/24
+          mac_address: '0c:1d:c0:1d:62:22'
+          uplink_switch_interfaces: [ Ethernet5, Ethernet5 ]

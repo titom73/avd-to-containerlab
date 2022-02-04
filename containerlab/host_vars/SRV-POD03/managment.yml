@@ -1,0 +1,8 @@
+management_interfaces:
+  Management1:
+    description: oob_management
+    shutdown: false
+    vrf: MGMT
+    ip_address: 10.73.254.43/24
+    gateway: 10.73.254.253
+    type: oob

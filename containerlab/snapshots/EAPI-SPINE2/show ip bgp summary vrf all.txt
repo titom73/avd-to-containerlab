@@ -1,0 +1,17 @@
+BGP summary information for VRF default
+Router identifier 192.168.1.2, local AS number 65001
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor         V  AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  EAPI-RS02_Ethernet1      172.31.250.3     4  65000           1284      1291    0    0 18:09:41 Estab   1      1
+  EAPI-L2LEAF01_Ethernet2  172.31.251.3     4  65107           4340      4376    0    0    2d12h Estab   2      2
+  EAPI-L2LEAF02_Ethernet2  172.31.251.7     4  65108           4330      4343    0    0    1d23h Estab   2      2
+  EAPI-LEAF1A_Ethernet2    172.31.255.3     4  65101           4461      4469    0    0    2d13h Estab   3      3
+  EAPI-LEAF1B_Ethernet2    172.31.255.7     4  65101           4457      4485    0    0    2d13h Estab   3      3
+  EAPI-LEAF2A_Ethernet2    172.31.255.11    4  65102           4450      4486    0    0    2d13h Estab   3      3
+  EAPI-LEAF2B_Ethernet2    172.31.255.15    4  65102           4448      4470    0    0    2d13h Estab   3      3
+  EAPI-LEAF3A_Ethernet2    172.31.255.19    4  65103           4452      4493    0    0    2d13h Estab   2      2
+  EAPI-LEAF4A_Ethernet2    172.31.255.23    4  65104           4452      4483    0    0    2d13h Estab   2      2
+  EAPI-BL01A_Ethernet2     172.31.255.27    4  65105           4478      4489    0    0    2d13h Estab   3      3
+  EAPI-BL01B_Ethernet2     172.31.255.31    4  65105           4494      4486    0    0    2d13h Estab   3      3
+  EAPI-CL01A_Ethernet2     172.31.255.35    4  65106           4360      4369    0    0    2d12h Estab   3      3
+  EAPI-CL01B_Ethernet2     172.31.255.39    4  65106           4346      4378    0    0    2d12h Estab   3      3

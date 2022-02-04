@@ -1,0 +1,15 @@
+VNI to VLAN Mapping for Vxlan1
+VNI         VLAN        Source       Interface           802.1Q Tag 
+----------- ----------- ------------ ------------------- ---------- 
+11          1199*       evpn         Vxlan1              1199       
+13          1194*       evpn         Vxlan1              1194       
+10110       110         static       Port-Channel5       110        
+                                     Vxlan1              110        
+10111       111         static       Port-Channel5       111        
+                                     Vxlan1              111        
+10112       112         static       Port-Channel5       112        
+                                     Vxlan1              112        
+20201       201         static       Port-Channel5       201        
+                                     Vxlan1              201        
+
+Note: * indicates a Dynamic VLAN

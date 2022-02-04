@@ -1,0 +1,15 @@
+Arista vEOS-lab
+Hardware version: 
+Serial number: BF30F637AECA366DE0A6550672744E54
+Hardware MAC address: 5001.0068.b446
+System MAC address: 5001.0068.b446
+
+Software image version: 4.26.2F
+Architecture: i686
+Internal build version: 4.26.2F-23563874.4262F
+Internal build ID: fa3a49f3-6093-4925-ad11-55fe15eac5ae
+Image format version: 1.0
+
+Uptime: 2 days, 13 hours and 1 minute
+Total memory: 2006804 kB
+Free memory: 995652 kB

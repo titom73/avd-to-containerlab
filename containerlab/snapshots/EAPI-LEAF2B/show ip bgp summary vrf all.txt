@@ -1,0 +1,13 @@
+BGP summary information for VRF default
+Router identifier 192.168.255.6, local AS number 65102
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor         V  AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  EAPI-LEAF2A              172.31.253.6     4  65102           4350      4348    0    0    2d13h Estab   23     23
+  EAPI-SPINE1_Ethernet4    172.31.255.12    4  65001           4569      4571    0    0    2d13h Estab   19     19
+  EAPI-SPINE2_Ethernet4    172.31.255.14    4  65001           4549      4561    0    0    2d13h Estab   19     19
+
+BGP summary information for VRF TENANT_A_PROJECT01
+Router identifier 192.168.255.6, local AS number 65102
+Neighbor Status Codes: m - Under maintenance
+  Neighbor         V  AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  172.31.253.6     4  65102           6317      6317    0    0    2d13h Estab   10     10

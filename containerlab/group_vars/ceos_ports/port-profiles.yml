@@ -1,0 +1,29 @@
+port_profiles:
+  ALL:
+    mode: trunk
+    vlans: "1-4000"
+  A-PR01-DMZ:
+    mode: access
+    vlans: "110"
+  A-PR01-TRUST:
+    mode: access
+    vlans: "111"
+  B-ELAN-201:
+    mode: access
+    vlans: "201"
+  STORM_CONTROL_UNUSED:
+    mode: trunk
+    vlans: "1-4000"
+    storm_control:
+      all:
+        level: 10
+        unit: percent
+      broadcast:
+        level: 100
+        unit: pps
+      multicast:
+        level: 1
+        unit: percent
+      'unknown-unicast':
+        level: 2
+        unit: percent

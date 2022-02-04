@@ -1,0 +1,340 @@
+router_bgp:
+  as: '65105'
+  router_id: 192.168.255.9
+  bgp_defaults:
+  - no bgp default ipv4-unicast
+  - distance bgp 20 200 200
+  - graceful-restart restart-time 300
+  - graceful-restart
+  - maximum-paths 4 ecmp 4
+  peer_groups:
+    MLAG-IPv4-UNDERLAY-PEER:
+      type: ipv4
+      remote_as: '65105'
+      next_hop_self: true
+      password: vnEaG8gMeQf3d3cN6PktXQ==
+      maximum_routes: 12000
+      send_community: all
+      route_map_in: RM-MLAG-PEER-IN
+    IPv4-UNDERLAY-PEERS:
+      type: ipv4
+      password: AQQvKeimxJu+uGQ/yYvv9w==
+      maximum_routes: 12000
+      send_community: all
+    EVPN-OVERLAY-PEERS:
+      type: evpn
+      update_source: Loopback0
+      bfd: true
+      ebgp_multihop: '3'
+      password: q+VNViP5i4rVjW1cxFv2wA==
+      send_community: all
+      maximum_routes: 0
+  address_family_ipv4:
+    peer_groups:
+      MLAG-IPv4-UNDERLAY-PEER:
+        activate: true
+      IPv4-UNDERLAY-PEERS:
+        activate: true
+      EVPN-OVERLAY-PEERS:
+        activate: false
+  neighbors:
+    172.31.253.15:
+      peer_group: MLAG-IPv4-UNDERLAY-PEER
+      description: EAPI-BL01B
+    172.31.255.24:
+      peer_group: IPv4-UNDERLAY-PEERS
+      remote_as: '65001'
+      description: EAPI-SPINE1_Ethernet5
+    172.31.255.26:
+      peer_group: IPv4-UNDERLAY-PEERS
+      remote_as: '65001'
+      description: EAPI-SPINE2_Ethernet5
+    192.168.1.1:
+      peer_group: EVPN-OVERLAY-PEERS
+      description: EAPI-SPINE1
+      remote_as: '65001'
+    192.168.1.2:
+      peer_group: EVPN-OVERLAY-PEERS
+      description: EAPI-SPINE2
+      remote_as: '65001'
+  redistribute_routes:
+    connected:
+      route_map: RM-CONN-2-BGP
+  address_family_evpn:
+    peer_groups:
+      EVPN-OVERLAY-PEERS:
+        activate: true
+  vrfs:
+    TENANT_A_PROJECT01:
+      router_id: 192.168.255.9
+      rd: 192.168.255.9:11
+      route_targets:
+        import:
+          evpn:
+          - '11:11'
+        export:
+          evpn:
+          - '11:11'
+      neighbors:
+        172.31.253.15:
+          peer_group: MLAG-IPv4-UNDERLAY-PEER
+      redistribute_routes:
+      - connected
+      - static
+  vlan_aware_bundles:
+    TENANT_A_PROJECT01:
+      rd: 192.168.255.9:11
+      route_targets:
+        both:
+        - '11:11'
+      redistribute_routes:
+      - learned
+      vlan: 110
+    B-ELAN-201:
+      tenant: Tenant_B
+      rd: 192.168.255.9:20201
+      route_targets:
+        both:
+        - 20201:20201
+      redistribute_routes:
+      - learned
+      vlan: 201
+static_routes:
+- vrf: MGMT
+  destination_address_prefix: 0.0.0.0/0
+  gateway: 10.73.254.253
+- destination_address_prefix: 1.1.1.0/24
+  vrf: TENANT_A_PROJECT01
+  gateway: 10.1.10.1
+service_routing_protocols_model: multi-agent
+ip_routing: true
+daemon_terminattr:
+  cvaddrs:
+  - 10.73.254.254:9910
+  cvauth:
+    method: key
+    key: telarista
+  cvvrf: MGMT
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+  disable_aaa: false
+vlan_internal_order:
+  allocation: ascending
+  range:
+    beginning: 1006
+    ending: 1199
+name_server:
+  source:
+    vrf: MGMT
+  nodes:
+  - 10.73.1.251
+spanning_tree:
+  mode: mstp
+  mst_instances:
+    '0':
+      priority: 4096
+  no_spanning_tree_vlan: 4093-4094
+local_users:
+  admin:
+    privilege: 15
+    role: network-admin
+    no_password: true
+  ansible:
+    privilege: 15
+    role: network-admin
+    sha512_password: $6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/
+  cvpadmin:
+    privilege: 15
+    role: network-admin
+    sha512_password: $6$rZKcbIZ7iWGAWTUM$TCgDn1KcavS0s.OV8lacMTUkxTByfzcGlFlYUWroxYuU7M/9bIodhRO7nXGzMweUxvbk8mJmQl8Bh44cRktUj.
+  demo:
+    privilege: 15
+    role: network-admin
+    sha512_password: $6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/
+clock:
+  timezone: Europe/Paris
+vrfs:
+  MGMT:
+    ip_routing: false
+  TENANT_A_PROJECT01:
+    tenant: Tenant_A
+    ip_routing: true
+management_interfaces:
+  Management0:
+    description: oob_management
+    shutdown: false
+    vrf: MGMT
+    ip_address: 10.73.254.15/24
+    gateway: 10.73.254.253
+    type: oob
+management_api_http:
+  enable_vrfs:
+    MGMT: {}
+  enable_https: true
+vlans:
+  4093:
+    tenant: system
+    name: LEAF_PEER_L3
+    trunk_groups:
+    - LEAF_PEER_L3
+  4094:
+    tenant: system
+    name: MLAG_PEER
+    trunk_groups:
+    - MLAG
+  110:
+    tenant: Tenant_A
+    name: PR01-DEMO
+  3010:
+    tenant: Tenant_A
+    name: MLAG_iBGP_TENANT_A_PROJECT01
+    trunk_groups:
+    - LEAF_PEER_L3
+  201:
+    tenant: Tenant_B
+    name: B-ELAN-201
+vlan_interfaces:
+  Vlan4093:
+    description: MLAG_PEER_L3_PEERING
+    shutdown: false
+    ip_address: 172.31.253.14/31
+    mtu: 1500
+  Vlan4094:
+    description: MLAG_PEER
+    shutdown: false
+    ip_address: 172.31.253.12/31
+    no_autostate: true
+    mtu: 1500
+  Vlan110:
+    tenant: Tenant_A
+    tags:
+    - DC1
+    description: PR01-DEMO
+    shutdown: false
+    vrf: TENANT_A_PROJECT01
+    ip_address_virtual: 10.1.10.254/24
+  Vlan3010:
+    tenant: Tenant_A
+    type: underlay_peering
+    shutdown: false
+    description: 'MLAG_PEER_L3_iBGP: vrf TENANT_A_PROJECT01'
+    vrf: TENANT_A_PROJECT01
+    ip_address: 172.31.253.14/31
+    mtu: 1500
+port_channel_interfaces:
+  Port-Channel3:
+    description: MLAG_PEER_EAPI-BL01B_Po3
+    type: switched
+    shutdown: false
+    vlans: 2-4094
+    mode: trunk
+    trunk_groups:
+    - LEAF_PEER_L3
+    - MLAG
+ethernet_interfaces:
+  Ethernet3:
+    peer: EAPI-BL01B
+    peer_interface: Ethernet3
+    peer_type: mlag_peer
+    description: MLAG_PEER_EAPI-BL01B_Ethernet3
+    type: switched
+    shutdown: false
+    channel_group:
+      id: 3
+      mode: active
+  Ethernet4:
+    peer: EAPI-BL01B
+    peer_interface: Ethernet4
+    peer_type: mlag_peer
+    description: MLAG_PEER_EAPI-BL01B_Ethernet4
+    type: switched
+    shutdown: false
+    channel_group:
+      id: 3
+      mode: active
+  Ethernet1:
+    peer: EAPI-SPINE1
+    peer_interface: Ethernet5
+    peer_type: spine
+    description: P2P_LINK_TO_EAPI-SPINE1_Ethernet5
+    mtu: 1500
+    type: routed
+    shutdown: false
+    ip_address: 172.31.255.25/31
+  Ethernet2:
+    peer: EAPI-SPINE2
+    peer_interface: Ethernet5
+    peer_type: spine
+    description: P2P_LINK_TO_EAPI-SPINE2_Ethernet5
+    mtu: 1500
+    type: routed
+    shutdown: false
+    ip_address: 172.31.255.27/31
+mlag_configuration:
+  domain_id: EAPI_BL01
+  local_interface: Vlan4094
+  peer_address: 172.31.253.13
+  peer_link: Port-Channel3
+  reload_delay_mlag: 300
+  reload_delay_non_mlag: 330
+route_maps:
+  RM-MLAG-PEER-IN:
+    sequence_numbers:
+      10:
+        type: permit
+        set:
+        - origin incomplete
+        description: Make routes learned over MLAG Peer-link less preferred on spines to ensure optimal routing
+  RM-CONN-2-BGP:
+    sequence_numbers:
+      10:
+        type: permit
+        match:
+        - ip address prefix-list PL-LOOPBACKS-EVPN-OVERLAY
+loopback_interfaces:
+  Loopback0:
+    description: EVPN_Overlay_Peering
+    shutdown: false
+    ip_address: 192.168.255.9/32
+  Loopback1:
+    description: VTEP_VXLAN_Tunnel_Source
+    shutdown: false
+    ip_address: 192.168.254.9/32
+prefix_lists:
+  PL-LOOPBACKS-EVPN-OVERLAY:
+    sequence_numbers:
+      10:
+        action: permit 192.168.255.0/24 eq 32
+      20:
+        action: permit 192.168.254.0/24 eq 32
+router_bfd:
+  multihop:
+    interval: 1200
+    min_rx: 1200
+    multiplier: 3
+ip_igmp_snooping:
+  globally_enabled: true
+ip_virtual_router_mac_address: 00:1c:73:00:dc:01
+vxlan_interface:
+  Vxlan1:
+    description: EAPI-BL01A_VTEP
+    vxlan:
+      source_interface: Loopback1
+      virtual_router_encapsulation_mac_address: mlag-system-id
+      udp_port: 4789
+      vlans:
+        110:
+          vni: 10110
+        201:
+          vni: 20201
+      vrfs:
+        TENANT_A_PROJECT01:
+          vni: 11
+management_ssh:
+  enable: true
+  vrfs:
+    MGMT:
+      enable: true
+aaa_authorization:
+  exec:
+    default: local

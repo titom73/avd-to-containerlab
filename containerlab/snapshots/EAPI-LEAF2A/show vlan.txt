@@ -1,0 +1,14 @@
+VLAN  Name                             Status    Ports
+----- -------------------------------- --------- -------------------------------
+1     default                          active    Et6, Et7, Et8, PEt6, PEt7, PEt8
+110   PR01-DEMO                        active    Cpu, Po3, Po5, Vx1
+111   PR01-TRUST                       active    Cpu, Po3, Po5, Vx1
+112   PR01-TRUST                       active    Cpu, Po3, Po5, Vx1
+201   B-ELAN-201                       active    Po3, Po5, Vx1
+1194* VLAN1194                         active    Cpu, Po3, Vx1
+1199* VLAN1199                         active    Cpu, Po3, Vx1
+3010  MLAG_iBGP_TENANT_A_PROJECT01     active    Cpu, Po3
+4093  LEAF_PEER_L3                     active    Cpu, Po3
+4094  MLAG_PEER                        active    Cpu, Po3
+
+* indicates a Dynamic VLAN

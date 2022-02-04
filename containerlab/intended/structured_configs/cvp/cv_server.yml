@@ -1,0 +1,103 @@
+---
+CVP_DEVICES:
+  - fqdn: EAPI-AGG01
+    parentContainerName: EAPI_EDGE_LEAF1
+    configlets:
+      - AVD_EAPI-AGG01
+  - fqdn: EAPI-AGG02
+    parentContainerName: EAPI_EDGE_LEAF2
+    configlets:
+      - AVD_EAPI-AGG02
+  - fqdn: EAPI-BL01A
+    parentContainerName: EAPI_BL01
+    configlets:
+      - AVD_EAPI-BL01A
+  - fqdn: EAPI-BL01B
+    parentContainerName: EAPI_BL01
+    configlets:
+      - AVD_EAPI-BL01B
+  - fqdn: EAPI-CL01A
+    parentContainerName: EAPI_CL02
+    configlets:
+      - AVD_EAPI-CL01A
+  - fqdn: EAPI-CL01B
+    parentContainerName: EAPI_CL02
+    configlets:
+      - AVD_EAPI-CL01B
+  - fqdn: EAPI-L2LEAF01
+    parentContainerName: EAPI_L2LEAF1
+    configlets:
+      - AVD_EAPI-L2LEAF01
+  - fqdn: EAPI-L2LEAF02
+    parentContainerName: EAPI_L2LEAF1
+    configlets:
+      - AVD_EAPI-L2LEAF02
+  - fqdn: EAPI-LEAF1A
+    parentContainerName: EAPI_LEAF1
+    configlets:
+      - AVD_EAPI-LEAF1A
+  - fqdn: EAPI-LEAF1B
+    parentContainerName: EAPI_LEAF1
+    configlets:
+      - AVD_EAPI-LEAF1B
+  - fqdn: EAPI-LEAF2A
+    parentContainerName: EAPI_LEAF2
+    configlets:
+      - AVD_EAPI-LEAF2A
+  - fqdn: EAPI-LEAF2B
+    parentContainerName: EAPI_LEAF2
+    configlets:
+      - AVD_EAPI-LEAF2B
+  - fqdn: EAPI-LEAF3A
+    parentContainerName: EAPI_LEAF_ESI
+    configlets:
+      - AVD_EAPI-LEAF3A
+  - fqdn: EAPI-LEAF4A
+    parentContainerName: EAPI_LEAF_ESI
+    configlets:
+      - AVD_EAPI-LEAF4A
+  - fqdn: EAPI-RS01
+    parentContainerName: EAPI_ROUTE_SERVERS
+    configlets:
+      - AVD_EAPI-RS01
+  - fqdn: EAPI-RS02
+    parentContainerName: EAPI_ROUTE_SERVERS
+    configlets:
+      - AVD_EAPI-RS02
+  - fqdn: EAPI-SPINE1
+    parentContainerName: EAPI_SPINES
+    configlets:
+      - AVD_EAPI-SPINE1
+  - fqdn: EAPI-SPINE2
+    parentContainerName: EAPI_SPINES
+    configlets:
+      - AVD_EAPI-SPINE2
+CVP_CONTAINERS:
+  EAPI_BL01:
+    parentContainerName: EAPI_L3LEAFS
+  EAPI_CL02:
+    parentContainerName: EAPI_L3LEAFS
+  EAPI_EDGE:
+    parentContainerName: EAPI_FABRIC
+  EAPI_EDGE_LEAF1:
+    parentContainerName: EAPI_EDGE
+  EAPI_EDGE_LEAF2:
+    parentContainerName: EAPI_EDGE
+  EAPI_FABRIC:
+    parentContainerName: Tenant
+  EAPI_L2LEAF1:
+    parentContainerName: EAPI_L2LEAFS
+  EAPI_L2LEAFS:
+    parentContainerName: EAPI_FABRIC
+  EAPI_L3LEAFS:
+    parentContainerName: EAPI_FABRIC
+  EAPI_LEAF1:
+    parentContainerName: EAPI_L3LEAFS
+  EAPI_LEAF2:
+    parentContainerName: EAPI_L3LEAFS
+  EAPI_LEAF_ESI:
+    parentContainerName: EAPI_L3LEAFS
+  EAPI_ROUTE_SERVERS:
+    parentContainerName: EAPI_FABRIC
+  EAPI_SPINES:
+    parentContainerName: EAPI_FABRIC

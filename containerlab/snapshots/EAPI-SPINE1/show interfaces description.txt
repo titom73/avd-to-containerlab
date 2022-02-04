@@ -1,0 +1,17 @@
+Interface                      Status         Protocol           Description
+Et1                            up             up                 P2P_LINK_TO_EAPI-LEAF1A_Ethernet1
+Et2                            up             up                 P2P_LINK_TO_EAPI-LEAF1B_Ethernet1
+Et3                            up             up                 P2P_LINK_TO_EAPI-LEAF2A_Ethernet1
+Et4                            up             up                 P2P_LINK_TO_EAPI-LEAF2B_Ethernet1
+Et5                            up             up                 P2P_LINK_TO_EAPI-BL01A_Ethernet1
+Et6                            up             up                 P2P_LINK_TO_EAPI-BL01B_Ethernet1
+Et7                            up             up                 P2P_LINK_TO_EAPI-LEAF3A_Ethernet1
+Et8                            up             up                 P2P_LINK_TO_EAPI-LEAF4A_Ethernet1
+Et9                            up             up                 P2P_LINK_TO_EAPI-CL01A_Ethernet1
+Et10                           up             up                 P2P_LINK_TO_EAPI-CL01B_Ethernet1
+Et11                           up             up                 P2P_LINK_TO_EAPI-L2LEAF01_Ethernet1
+Et12                           up             up                 P2P_LINK_TO_EAPI-L2LEAF02_Ethernet1
+Et13                           up             up                 P2P_LINK_TO_EAPI-RS01_Ethernet1
+Et14                           up             up                 
+Lo0                            up             up                 EVPN_Overlay_Peering
+Ma1                            up             up                 oob_management

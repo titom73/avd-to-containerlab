@@ -1,0 +1,31 @@
+VRF name: default
+-----------------
+DstAddr               MyDisc      YourDisc    Interface/Transport        Type   
+---------------- ------------- ------------- ---------------------- ----------- 
+192.168.253.2     1100995086    1061049470                     NA    multihop   
+192.168.253.3     1187955240    2971290802                     NA    multihop   
+192.168.255.3      471610331    2237897694                     NA    multihop   
+192.168.255.4     3937651306     839961824                     NA    multihop   
+192.168.255.5      147395096     420058011                     NA    multihop   
+192.168.255.6     1046699387    2126954379                     NA    multihop   
+192.168.255.7      599591939     512467348                     NA    multihop   
+192.168.255.8     3430836204    4057132875                     NA    multihop   
+192.168.255.9     2652598855    3544063705                     NA    multihop   
+192.168.255.10    1452695483     249825636                     NA    multihop   
+192.168.255.11    3661721393    3940807102                     NA    multihop   
+192.168.255.12    2978021091    3780853764                     NA    multihop   
+
+           LastUp             LastDown            LastDiag    State 
+-------------------- -------------------- ------------------- ----- 
+   08/27/21 17:14                   NA       No Diagnostic       Up 
+   08/27/21 17:14                   NA       No Diagnostic       Up 
+   08/27/21 21:19       08/27/21 21:19       No Diagnostic       Up 
+   08/27/21 17:14                   NA       No Diagnostic       Up 
+   08/27/21 17:14                   NA       No Diagnostic       Up 
+   08/27/21 17:14                   NA       No Diagnostic       Up 
+   08/27/21 17:14       08/27/21 17:14       No Diagnostic       Up 
+   08/27/21 17:14                   NA       No Diagnostic       Up 
+   08/27/21 17:14                   NA       No Diagnostic       Up 
+   08/27/21 17:14                   NA       No Diagnostic       Up 
+   08/27/21 17:14                   NA       No Diagnostic       Up 
+   08/27/21 17:14                   NA       No Diagnostic       Up

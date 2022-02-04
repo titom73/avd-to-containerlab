@@ -1,0 +1,15 @@
+#### Override for vEOS Lab Caveats ####
+
+# Disable update wait-for-convergence and update wait-for-install,
+# which is not supported in vEOS-LAB.
+# Refer to design guide
+
+bgp_defaults_veos:
+  - no bgp default ipv4-unicast
+  - distance bgp 20 200 200
+  - graceful-restart restart-time 300
+  - graceful-restart
+
+mlag_interfaces_veos:
+  - Ethernet3
+  - Ethernet4

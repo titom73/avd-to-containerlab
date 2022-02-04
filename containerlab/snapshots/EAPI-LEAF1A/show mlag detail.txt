@@ -1,0 +1,50 @@
+MLAG Configuration:               
+domain-id                          :          EAPI_LEAF1
+local-interface                    :            Vlan4094
+peer-address                       :        172.31.253.1
+peer-link                          :       Port-Channel3
+peer-config                        :          consistent
+                                                        
+MLAG Status:                      
+state                              :              Active
+negotiation status                 :           Connected
+peer-link status                   :                  Up
+local-int status                   :                  Up
+system-id                          :   0e:1d:c0:f0:bd:d1
+dual-primary detection             :            Disabled
+dual-primary interface errdisabled :               False
+                                                        
+MLAG Ports:                       
+Disabled                           :                   0
+Configured                         :                   0
+Inactive                           :                   0
+Active-partial                     :                   0
+Active-full                        :                   1
+
+MLAG Detailed Status:
+State                           :                primary
+Peer State                      :              secondary
+State changes                   :                      6
+Last state change time          :   2 days, 13:13:36 ago
+Hardware ready                  :                   True
+Failover                        :                  False
+Failover Cause(s)               :                Unknown
+Last failover change time       :                  never
+Secondary from failover         :                  False
+Peer MAC address                :      0c:1d:c0:f4:7b:39
+Peer MAC routing supported      :                  False
+Reload delay                    :            300 seconds
+Non-MLAG reload delay           :            330 seconds
+Peer ports errdisabled          :                  False
+Lacp standby                    :                  False
+Configured heartbeat interval   :                4000 ms
+Effective heartbeat interval    :                4000 ms
+Heartbeat timeout               :               60000 ms
+Last heartbeat timeout          :   2 days, 13:29:04 ago
+Heartbeat timeouts since reboot :                      2
+UDP heartbeat alive             :                   True
+Heartbeats sent/received        :            59508/59275
+Peer monotonic clock offset     :       2.197772 seconds
+Agent should be running         :                   True
+P2p mount state changes         :                     10
+Fast MAC redirection enabled    :                  False

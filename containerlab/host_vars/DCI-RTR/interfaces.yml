@@ -1,0 +1,65 @@
+vrfs:
+  MGMT:
+    ip_routing: false
+  tenant_a_110:
+    description: Tenant A vlan 110
+    ip_routing: true
+    ipv6_routing: false
+  tenant_a_112:
+    description: Tenant A vlan 112
+    ip_routing: true
+    ipv6_routing: false
+  tenant_b_201:
+    description: Tenant B vlan 201
+    ip_routing: true
+    ipv6_routing: false
+
+ethernet_interfaces:
+  Ethernet1:
+    description:
+    shutdown: false
+    type: switched
+    logging:
+      event:
+        link_status: true
+    vlans: "1-4000"
+    native_vlan: 1
+    mode: trunk
+    spanning_tree_bpdufilter: true
+    spanning_tree_bpduguard: true
+    spanning_tree_portfast: edge
+    # storm_control:
+    #   all:
+    #     level: 10
+    #   broadcast:
+    #     level: 10
+    #   multicast:
+    #     level: 2
+    #   unknown_unicast:
+    #     level: 2
+
+vlan_interfaces:
+  110:
+    description: vl110
+    shutdown: false
+    vrf: tenant_a_110
+    ip_address: 10.1.10.1/24
+  112:
+    description: vl112
+    shutdown: false
+    vrf: tenant_a_112
+    ip_address: 10.1.12.1/24
+  201:
+    description: vl201
+    shutdown: false
+    vrf: tenant_a_201
+    ip_address: 10.2.1.1/24
+
+
+static_routes:
+  - vrf: tenant_a_110
+    destination_address_prefix: 0.0.0.0/0
+    gateway: 10.1.10.254
+  - vrf: tenant_a_112
+    destination_address_prefix: 0.0.0.0/0
+    gateway: 10.1.12.254

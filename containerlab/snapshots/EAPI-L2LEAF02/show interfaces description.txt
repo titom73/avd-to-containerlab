@@ -1,0 +1,15 @@
+Interface                      Status         Protocol           Description
+Et1                            up             up                 P2P_LINK_TO_EAPI-SPINE1_Ethernet12
+Et2                            up             up                 P2P_LINK_TO_EAPI-SPINE2_Ethernet12
+Et3                            up             up                 
+Et4                            up             up                 
+Et5                            up             up                 SRV-POD05-24_Eth1
+Et6                            up             up                 
+Et7                            up             up                 
+Et8                            up             up                 
+Lo0                            up             up                 EVPN_Overlay_Peering
+Lo1                            up             up                 VTEP_VXLAN_Tunnel_Source
+Ma1                            up             up                 oob_management
+Vl1192                         up             up                 
+Vl1195                         up             up                 
+Vx1                            up             up                 EAPI-L2LEAF02_VTEP

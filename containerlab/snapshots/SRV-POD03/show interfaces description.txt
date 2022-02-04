@@ -1,0 +1,14 @@
+Interface                      Status         Protocol           Description
+Et1                            up             up                 to AVD2-LEAF3A - eth5
+Et2                            up             up                 to AVD2-LEAF4A - eth5
+Et3                            up             up                 
+Et4                            up             up                 
+Et5                            up             up                 
+Et6                            up             up                 
+Et7                            up             up                 
+Et8                            up             up                 
+Ma1                            up             up                 oob_management
+Po1                            up             up                 to AVD2-LEAF{3|4}A - ESI
+Vl110                          up             up                 SVI for Tenant A vlan 110
+Vl113                          down           lowerlayerdown     SVI for Tenant A vlan 113
+Vl201                          up             up                 SVI for Tenant B vlan 201

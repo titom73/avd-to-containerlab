@@ -1,0 +1,6 @@
+Address 
+Interface       IP Address          Status      Protocol         MTU    Owner   
+--------------- ------------------- ----------- ------------- --------- ------- 
+Management1     10.73.254.45/24     up          up              1500            
+Vlan301         10.3.1.1/24         up          up              1500            
+Vlan302         10.3.2.1/24         up          up              1500

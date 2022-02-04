@@ -1,0 +1,11 @@
+VNI to VLAN Mapping for Vxlan1
+VNI         VLAN       Source       Interface       802.1Q Tag 
+----------- ---------- ------------ --------------- ---------- 
+30302       302        static       Ethernet5       302        
+                                    Vxlan1          302        
+
+VNI to dynamic VLAN Mapping for Vxlan1
+VNI       VLAN       VRF                   Source        
+--------- ---------- --------------------- ------------  
+11        1192                             evpn          
+13        1195       CENTRAL_ROUTING       evpn

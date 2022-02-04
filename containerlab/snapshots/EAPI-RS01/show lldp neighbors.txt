@@ -1,0 +1,25 @@
+Last table change time   : 18:09:27 ago
+Number of table inserts  : 17
+Number of table deletes  : 0
+Number of table drops    : 0
+Number of table age-outs : 0
+
+Port          Neighbor Device ID       Neighbor Port ID    TTL 
+---------- ------------------------ ---------------------- --- 
+Et1           EAPI-SPINE1              Ethernet13          120 
+Ma1           EAPI-L2LEAF02            Management1         120 
+Ma1           EAPI-CL01A               Management1         120 
+Ma1           SRV-POD03                Management1         120 
+Ma1           SRV-POD02                Management1         120 
+Ma1           EAPI-LEAF2A              Management1         120 
+Ma1           EAPI-LEAF1A              Management1         120 
+Ma1           EAPI-LEAF2B              Management1         120 
+Ma1           SRV-POD01                Management1         120 
+Ma1           EAPI-LEAF4A              Management1         120 
+Ma1           EAPI-AGG02               Management1         120 
+Ma1           EAPI-BL01A               Management1         120 
+Ma1           EAPI-LEAF1B              Management1         120 
+Ma1           EAPI-LEAF3A              Management1         120 
+Ma1           EAPI-AGG01               Management1         120 
+Ma1           SRV-POD05-24             Management1         120 
+Ma1           EAPI-L2LEAF01            Management1         120

@@ -1,0 +1,22 @@
+---
+node_type_keys:
+  spine:
+    type: spine
+    default_evpn_role: server
+  l3leaf:
+    type: l3leaf
+    connected_endpoints: true
+    default_evpn_role: client
+    mlag_support: true
+    network_services:
+      l2: true
+      l3: true
+    vtep: true
+  edge:
+    type: edge
+    connected_endpoints: true
+    mlag_support: true
+    network_services:
+      l2: true
+    underlay_router: false
+    uplink_type: port-channel

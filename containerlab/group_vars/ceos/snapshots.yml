@@ -1,0 +1,23 @@
+---
+output_format:
+ - text
+ - markdown
+
+commands_list:
+  - show lldp neighbors
+  - show ip interface brief
+  - show interfaces description
+  - show version
+  - show ip bgp summary vrf all
+  - show bgp evpn summary
+  - show bgp evpn
+  - show ip route vrf all
+  - show vxlan vtep
+  - show vxlan address-table
+  - show vxlan vni
+  - show vlan
+  - show mac address-table
+  - show bfd peers
+  - show mlag detail
+  - show mlag config-sanity
+  - show system environment cooling

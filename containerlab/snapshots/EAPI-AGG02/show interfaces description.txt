@@ -1,0 +1,11 @@
+Interface                      Status         Protocol           Description
+Et1                            up             up                 EAPI-LEAF2A_Ethernet5
+Et2                            up             up                 EAPI-LEAF2B_Ethernet5
+Et3                            up             up                 SRV-POD02_Eth1
+Et4                            up             up                 
+Et5                            up             up                 
+Et6                            up             up                 
+Et7                            up             up                 
+Et8                            up             up                 
+Ma1                            up             up                 oob_management
+Po1                            up             up                 EAPI_LEAF2_Po5
